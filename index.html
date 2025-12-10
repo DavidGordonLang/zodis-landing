@@ -141,55 +141,26 @@
 
     <!-- BETA ACCESS -->
     <section id="beta" class="border-t border-slate-800 px-6 py-12 max-w-4xl mx-auto text-center">
-
       <h2 class="text-2xl font-semibold mb-6">Request Beta Access</h2>
 
-      <!-- SUCCESS MESSAGE (hidden until success=1) -->
-      <div id="success-banner" class="hidden bg-brand-primary/20 border border-brand-primary text-brand-primary px-4 py-3 rounded-lg text-sm mb-6">
-        ✔️ Request received — check your email to confirm your spot.
-      </div>
-
-      <p class="text-slate-400 text-sm max-w-lg mx-auto mb-6">
-        Enter your email to request early access. You'll receive a confirmation shortly.
+      <p class="text-slate-400 text-sm mb-6">
+        Enter your email to join the waitlist. You’ll receive a confirmation link.
       </p>
 
-      <!-- ACTUAL BREVO FORM -->
-      <form 
-        id="sib-form"
-        method="POST"
-        action="https://6cdf01b9.sibforms.com/serve/MUIFAJ9Wl7_QegDS8xnoz4gUNufKHJZm7mQvMGlabqoDhXWeAlRyMY8lEK4vmV-goo6NIg02orC7Tn3OW5BKVmdsocx3xyrWL8RmSs1WnrF6m7vd9u0OwC_LtWDeQU-ycRYtR1o1g5h_90QuY6TqJQDTCuIjWEH2oH4ywpXvR6KjCmlIOXYcLBXMFcio9bjmbgMZJBrFgHZF9dEaAw==" 
-        class="space-y-4 bg-black/60 p-6 rounded-xl border border-slate-800 max-w-xl mx-auto"
-      >
+      <div class="bg-black/60 p-6 rounded-xl border border-slate-800">
 
-        <div>
-          <label class="block text-xs mb-1 text-slate-400">Email</label>
-          <input 
-            type="text"
-            id="EMAIL"
-            name="EMAIL"
-            placeholder="you@example.com"
-            required
-            class="w-full bg-black border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-50"
-          />
-        </div>
+        <!-- WORKING BREVO IFRAME -->
+        <iframe 
+          width="540" 
+          height="305" 
+          src="https://6cdf01b9.sibforms.com/serve/MUIFAJ9Wl7_QegDS8xnoz4gUNufKHJZm7mQvMGlabqoDhXWeAlRyMY8lEK4vmV-goo6NIg02orC7Tn3OW5BKVmdsocx3xyrWL8RmSs1WnrF6m7vd9u0OwC_LtWDeQU-ycRYtR1o1g5h_90QuY6TqJQDTCuIjWEH2oH4ywpXvR6KjCmlIOXYcLBXMFcio9bjmbgMZJBrFgHZF9dEaAw=="
+          frameborder="0"
+          scrolling="auto"
+          allowfullscreen
+          style="display:block;margin-left:auto;margin-right:auto;max-width:100%;border-radius:12px;">
+        </iframe>
 
-        <button 
-          type="submit"
-          class="w-full bg-brand-primary text-black font-semibold px-4 py-2 rounded-full hover:bg-brand-secondary text-sm"
-        >
-          Request Access
-        </button>
-
-        <!-- REQUIRED BREVO FIELDS -->
-        <input type="text" name="email_address_check" value="" class="hidden">
-        <input type="hidden" name="locale" value="en">
-        <input type="hidden" name="html_type" value="simple">
-
-        <!-- REDIRECT BACK TO HOMEPAGE WITH SUCCESS FLAG -->
-        <input type="hidden" name="redirect_url" value="https://zodis.app/?success=1">
-
-      </form>
-
+      </div>
     </section>
 
   </main>
@@ -200,19 +171,12 @@
   </footer>
 
   <script>
-    // Parallax effect
+    // Parallax motion
     window.addEventListener('scroll', () => {
       document.querySelectorAll('.parallax-layer').forEach(el => {
         el.style.transform = `translateY(${window.scrollY * 0.05}px)`;
       });
     });
-
-    // Detect success flag
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get("success") === "1") {
-      const banner = document.getElementById("success-banner");
-      if (banner) banner.classList.remove("hidden");
-    }
   </script>
 
 </body>
