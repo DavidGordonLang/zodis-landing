@@ -143,27 +143,47 @@
     <section id="beta" class="border-t border-slate-800 px-6 py-12 max-w-4xl mx-auto text-center">
       <h2 class="text-2xl font-semibold mb-6">Request Beta Access</h2>
 
-      <!-- BREVO EMBED PLACEHOLDER -->
-      <div class="bg-black/60 p-6 rounded-xl border border-slate-800">
+      <p class="text-slate-400 text-sm max-w-lg mx-auto mb-6">
+        Enter your email to request early access. You'll receive a confirmation shortly.
+      </p>
 
-        <!-- Replace this snippet with the one Brevo gives you -->
-        <p class="text-slate-400 text-sm mb-4">
-          Enter your email to request early access. You'll receive a confirmation shortly.
-        </p>
+      <!-- CLEAN TAILWIND BREVO FORM -->
+      <form 
+        action="https://6cdf01b9.sibforms.com/serve/MUIFAJ9Wl7_QegDS8xnoz4gUNufKHJZm7mQvMGlabqoDhXWeAlRyMY8lEK4vmV-goo6NIg02orC7Tn3OW5BKVmdsocx3xyrWL8RmSs1WnrF6m7vd9u0OwC_LtWDeQU-ycRYtR1o1g5h_90QuY6TqJQDTCuIjWEH2oH4ywpXvR6KjCmlIOXYcLBXMFcio9bjmbgMZJBrFgHZF9dEaAw==" 
+        method="POST"
+        class="space-y-4 bg-black/60 p-6 rounded-xl border border-slate-800 max-w-xl mx-auto"
+      >
 
-        <div id="brevo-form">
-          <!-- Brevo will inject the actual form here -->
-          <script>
-            // Placeholder for your Brevo embed JS
-          </script>
+        <div>
+          <label class="block text-xs mb-1 text-slate-400">Email</label>
+          <input 
+            type="email" 
+            name="EMAIL" 
+            required 
+            placeholder="you@example.com"
+            class="w-full bg-black border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-50"
+          />
         </div>
 
-      </div>
+        <button 
+          type="submit" 
+          class="w-full bg-brand-primary text-black font-semibold px-4 py-2 rounded-full hover:bg-brand-secondary text-sm"
+        >
+          Request Access
+        </button>
+
+        <!-- Required Brevo fields -->
+        <input type="text" name="email_address_check" value="" class="hidden">
+        <input type="hidden" name="locale" value="en">
+        <input type="hidden" name="html_type" value="simple">
+
+      </form>
+
     </section>
 
   </main>
 
-  <!-- FOOTER (CONTACT + PRIVACY REMOVED) -->
+  <!-- FOOTER -->
   <footer class="border-t border-slate-800 px-6 py-6 text-xs text-slate-500 text-center max-w-5xl mx-auto">
     © 2025 Žodis — Created by David Lang with love and care.
   </footer>
