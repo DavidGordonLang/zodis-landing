@@ -37,9 +37,19 @@
       transition: transform 0.2s ease-out;
     }
 
-    /* Phone aspect ratio helpers */
+    /* Phone aspect ratio */
     .phone-frame {
       aspect-ratio: 9 / 19.5;
+    }
+
+    /* SUPER CLEAN PREMIUM SCROLLBAR */
+    .hide-scrollbar::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
+    .hide-scrollbar {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
     }
   </style>
 </head>
@@ -62,7 +72,7 @@
   <main>
 
     <!-- HERO -->
-    <section class="px-6 py-14 max-w-5xl mx-auto text-center">
+    <section class="px-6 py-14 max-w-6xl mx-auto text-center">
       <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight">
         Learn <span class="text-brand-primary">real Lithuanian</span>, not robotic translations.
       </h1>
@@ -76,9 +86,9 @@
         Join Beta
       </a>
 
-      <!-- HERO PHONE FRAME -->
+      <!-- HERO PHONE FRAME (now 75% width) -->
       <div class="mt-12 flex justify-center">
-        <div class="relative w-[350px] max-w-full group">
+        <div class="relative w-[75%] max-w-2xl group">
 
           <!-- Glow -->
           <div class="absolute inset-0 -z-10 bg-gradient-to-b from-brand-primary/10 via-transparent to-brand-primary/5 blur-3xl"></div>
@@ -87,7 +97,7 @@
           <!-- Phone body -->
           <div class="relative rounded-[2rem] bg-black border border-slate-800 shadow-2xl p-4 group-hover:brightness-75 transition duration-300">
 
-            <!-- Scrollable phone viewport -->
+            <!-- Scrollable viewport -->
             <div class="rounded-3xl overflow-y-scroll overflow-x-hidden border border-slate-800 phone-frame hide-scrollbar">
               <img
                 src="/public/hero-translation.jpg"
@@ -135,16 +145,16 @@
       <div class="grid sm:grid-cols-3 gap-6">
 
         <!-- Screenshot Card -->
-        <div class="border border-slate-800 rounded-2xl overflow-hidden bg-black phone-frame">
-          <img src="/public/screen-home.jpg" class="w-full h-full object-cover" />
+        <div class="border border-slate-800 rounded-2xl overflow-hidden bg-black phone-frame hide-scrollbar overflow-y-scroll">
+          <img src="/public/screen-home.jpg" class="w-full h-auto" />
         </div>
 
-        <div class="border border-slate-800 rounded-2xl overflow-hidden bg-black phone-frame">
-          <img src="/public/screen-library.jpg" class="w-full h-full object-cover" />
+        <div class="border border-slate-800 rounded-2xl overflow-hidden bg-black phone-frame hide-scrollbar overflow-y-scroll">
+          <img src="/public/screen-library.jpg" class="w-full h-auto" />
         </div>
 
-        <div class="border border-slate-800 rounded-2xl overflow-hidden bg-black phone-frame">
-          <img src="/public/screen-settings.jpg" class="w-full h-full object-cover" />
+        <div class="border border-slate-800 rounded-2xl overflow-hidden bg-black phone-frame hide-scrollbar overflow-y-scroll">
+          <img src="/public/screen-settings.jpg" class="w-full h-auto" />
         </div>
 
       </div>
@@ -177,7 +187,7 @@
   </footer>
 
   <script>
-    // Parallax scroll motion for hero
+    // Parallax scroll for hero
     window.addEventListener('scroll', () => {
       document.querySelectorAll('.parallax-layer').forEach(el => {
         el.style.transform = `translateY(${window.scrollY * 0.05}px)`;
