@@ -13,17 +13,35 @@
         extend: {
           colors: {
             brand: {
-              primary: '#25C26E',    // main CTA green
-              secondary: '#1FAF63',  // tabs/pills
-              text: '#4ADE80',       // highlight text
-              accent: '#21C985'      // optional hero accent
+              primary: '#25C26E',
+              secondary: '#1FAF63',
+              text: '#4ADE80',
+              accent: '#21C985'
             }
           }
         }
       }
     }
   </script>
+
+  <style>
+    /* Subtle pulse */
+    @keyframes pulse-slow {
+      0%, 100% { opacity: 0.35; }
+      50% { opacity: 0.5; }
+    }
+    .animate-pulse-slow {
+      animation: pulse-slow 6s ease-in-out infinite;
+    }
+
+    /* Parallax layer base transform */
+    .parallax-layer {
+      transform: translateY(0px);
+      transition: transform 0.2s ease-out;
+    }
+  </style>
 </head>
+
 <body class="bg-black text-slate-50 antialiased">
   <header class="border-b border-slate-800 p-4 flex justify-between items-center bg-black/90">
     <div class="flex items-center gap-3">
@@ -72,30 +90,6 @@
       </div>
     </section>
 
-    <style>
-      /* Subtle pulse */
-      @keyframes pulse-slow {
-        0%, 100% { opacity: 0.35; }
-        50% { opacity: 0.5; }
-      }
-      .animate-pulse-slow {
-        animation: pulse-slow 6s ease-in-out infinite;
-      }
-
-      /* Parallax micro-motion */
-      .parallax-layer {
-        transform: translateY(0px);
-        transition: transform 0.2s ease-out;
-      }
-      window.addEventListener('scroll', () => {
-        const elements = document.querySelectorAll('.parallax-layer');
-        const scrolled = window.scrollY;
-        elements.forEach(el => {
-          el.style.transform = `translateY(${scrolled * 0.05}px)`;
-        });
-      });
-    </style>
-
     <!-- FEATURES SECTION -->
     <section id="features" class="border-t border-slate-800 px-6 py-14 max-w-6xl mx-auto text-left">
       <h2 class="text-2xl font-semibold mb-6">What Žodis helps you do</h2>
@@ -115,14 +109,14 @@
 
         <div class="space-y-4">
           <h3 class="text-lg font-semibold text-brand-primary">Create your own personalised phrasebook</h3>
-          <p>Every phrase you translate can be saved with one tap. Organise your library with categories like Phrases, Questions, Words, and Numbers — just like inside the app. Review them before conversations, appointments, family visits, or trips.</p>
+          <p>Every phrase you translate can be saved with one tap. Organise your library with categories like Phrases, Questions, Words, and Numbers — just like inside the app.</p>
           <p>Your phrasebook grows with you, becoming your personal Lithuanian toolkit.</p>
         </div>
 
         <div class="space-y-4">
           <h3 class="text-lg font-semibold text-brand-primary">Speak with clarity — even as a beginner</h3>
-          <p>Play Lithuanian audio at normal speed or slow mode. Perfect if you're still learning pronunciation or want to check tone before speaking to someone.</p>
-          <p>Every phrase has literal and natural English meanings, so you understand how Lithuanians think when they form sentences.</p>
+          <p>Play Lithuanian audio at normal or slow speeds. Perfect for learning tone and rhythm.</p>
+          <p>Each phrase includes literal and natural English translations so you understand how Lithuanians think.</p>
         </div>
       </div>
     </section>
@@ -161,6 +155,16 @@
     </div>
   </footer>
 
-  
+  <script>
+    // Parallax scroll motion
+    window.addEventListener('scroll', () => {
+      const elements = document.querySelectorAll('.parallax-layer');
+      const scrolled = window.scrollY;
+      elements.forEach(el => {
+        el.style.transform = `translateY(${scrolled * 0.05}px)`;
+      });
+    });
+  </script>
+
 </body>
 </html>
