@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Žodis is a multilingual phrase trainer that helps you learn real Lithuanian, with native audio, tone, and a personalised phrasebook." />
   <script src="https://cdn.tailwindcss.com"></script>
+
   <script>
     tailwind.config = {
       theme: {
@@ -24,7 +25,6 @@
   </script>
 
   <style>
-    /* Subtle pulse */
     @keyframes pulse-slow {
       0%, 100% { opacity: 0.35; }
       50% { opacity: 0.5; }
@@ -33,15 +33,20 @@
       animation: pulse-slow 6s ease-in-out infinite;
     }
 
-    /* Parallax layer base transform */
     .parallax-layer {
-      transform: translateY(0px);
       transition: transform 0.2s ease-out;
+    }
+
+    /* Phone aspect ratio helpers */
+    .phone-frame {
+      aspect-ratio: 9 / 19.5;
     }
   </style>
 </head>
 
 <body class="bg-black text-slate-50 antialiased">
+
+  <!-- HEADER -->
   <header class="border-b border-slate-800 p-4 flex justify-between items-center bg-black/90">
     <div class="flex items-center gap-3">
       <div class="h-8 w-8 bg-brand-primary rounded-xl flex items-center justify-center text-black font-bold">Ž</div>
@@ -55,7 +60,8 @@
   </header>
 
   <main>
-    <!-- HERO SECTION -->
+
+    <!-- HERO -->
     <section class="px-6 py-14 max-w-5xl mx-auto text-center">
       <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight">
         Learn <span class="text-brand-primary">real Lithuanian</span>, not robotic translations.
@@ -70,73 +76,84 @@
         Join Beta
       </a>
 
-      <!-- HERO SCREENSHOT -->
-      <div class="mt-10 flex justify-center">
-        <div class="relative w-[260px] group">
+      <!-- HERO PHONE FRAME -->
+      <div class="mt-12 flex justify-center">
+        <div class="relative w-[350px] max-w-full group">
 
-          <!-- Soft vertical gradient behind phone -->
+          <!-- Glow -->
           <div class="absolute inset-0 -z-10 bg-gradient-to-b from-brand-primary/10 via-transparent to-brand-primary/5 blur-3xl"></div>
-
-          <!-- Mint glow with subtle pulse -->
           <div class="absolute inset-0 rounded-[2rem] bg-brand-primary/20 blur-2xl opacity-40 animate-pulse-slow"></div>
 
-          <div class="relative rounded-[2rem] bg-black border border-slate-800 shadow-2xl p-3 transition duration-300 group-hover:brightness-75">
-            <div class="rounded-3xl overflow-hidden border border-slate-800">
+          <!-- Phone body -->
+          <div class="relative rounded-[2rem] bg-black border border-slate-800 shadow-2xl p-4 group-hover:brightness-75 transition duration-300">
+
+            <!-- Scrollable phone viewport -->
+            <div class="rounded-3xl overflow-y-scroll overflow-x-hidden border border-slate-800 phone-frame hide-scrollbar">
               <img
                 src="/public/hero-translation.jpg"
                 alt="Žodis translation screenshot"
                 class="w-full h-auto parallax-layer"
               />
             </div>
+
           </div>
         </div>
       </div>
     </section>
 
-    <!-- FEATURES SECTION -->
+    <!-- FEATURES -->
     <section id="features" class="border-t border-slate-800 px-6 py-14 max-w-6xl mx-auto text-left">
       <h2 class="text-2xl font-semibold mb-6">What Žodis helps you do</h2>
 
       <div class="grid md:grid-cols-2 gap-10 text-slate-300 text-sm leading-relaxed">
         <div class="space-y-4">
           <h3 class="text-lg font-semibold text-brand-primary">Learn real Lithuanian — not textbook Lithuanian</h3>
-          <p>Žodis focuses on phrases people actually use in Lithuania: the way partners speak to each other, the way friends joke, the way shop assistants greet you, and the way people naturally phrase things in daily life.</p>
-          <p>Every phrase comes with clear Lithuanian audio and pronunciation guidance, so you learn tone, emphasis, and rhythm — something Google Translate simply doesn't deliver.</p>
+          <p>Žodis focuses on phrases people actually use...</p>
         </div>
 
         <div class="space-y-4">
           <h3 class="text-lg font-semibold text-brand-primary">Built for expats, partners, and newcomers</h3>
-          <p>Whether you're here for work, studying, moving in with Lithuanian family, or just trying to feel more confident in conversations, Žodis adapts to your needs. Choose who you're speaking to (neutral, male, female) and the tone you want (friendly, neutral, polite).</p>
-          <p>The app shapes the Lithuanian for you automatically.</p>
+          <p>Whether you're here for work, studying...</p>
         </div>
 
         <div class="space-y-4">
           <h3 class="text-lg font-semibold text-brand-primary">Create your own personalised phrasebook</h3>
-          <p>Every phrase you translate can be saved with one tap. Organise your library with categories like Phrases, Questions, Words, and Numbers — just like inside the app.</p>
-          <p>Your phrasebook grows with you, becoming your personal Lithuanian toolkit.</p>
+          <p>Every phrase you translate can be saved...</p>
         </div>
 
         <div class="space-y-4">
           <h3 class="text-lg font-semibold text-brand-primary">Speak with clarity — even as a beginner</h3>
-          <p>Play Lithuanian audio at normal or slow speeds. Perfect for learning tone and rhythm.</p>
-          <p>Each phrase includes literal and natural English translations so you understand how Lithuanians think.</p>
+          <p>Play Lithuanian audio at normal or slow speeds...</p>
         </div>
       </div>
     </section>
 
-    <!-- SCREENSHOTS SECTION -->
+    <!-- SCREENSHOTS -->
     <section id="screens" class="border-t border-slate-800 px-6 py-12 max-w-6xl mx-auto">
       <h2 class="text-xl font-semibold mb-6">App Screenshots</h2>
+
       <div class="grid sm:grid-cols-3 gap-6">
-        <img src="/public/screen-home.jpg" class="rounded-xl border border-slate-800" />
-        <img src="/public/screen-library.jpg" class="rounded-xl border border-slate-800" />
-        <img src="/public/screen-settings.jpg" class="rounded-xl border border-slate-800" />
+
+        <!-- Screenshot Card -->
+        <div class="border border-slate-800 rounded-2xl overflow-hidden bg-black phone-frame">
+          <img src="/public/screen-home.jpg" class="w-full h-full object-cover" />
+        </div>
+
+        <div class="border border-slate-800 rounded-2xl overflow-hidden bg-black phone-frame">
+          <img src="/public/screen-library.jpg" class="w-full h-full object-cover" />
+        </div>
+
+        <div class="border border-slate-800 rounded-2xl overflow-hidden bg-black phone-frame">
+          <img src="/public/screen-settings.jpg" class="w-full h-full object-cover" />
+        </div>
+
       </div>
     </section>
 
-    <!-- BETA SIGNUP -->
+    <!-- BETA -->
     <section id="beta" class="border-t border-slate-800 px-6 py-12 max-w-4xl mx-auto">
       <h2 class="text-xl font-semibold mb-4">Join the pre-launch beta</h2>
+
       <form action="https://formspree.io/f/your-form-id" method="POST" class="space-y-4 bg-black/60 p-6 rounded-xl border border-slate-800">
         <div>
           <label class="block text-xs mb-1 text-slate-400">Email</label>
@@ -148,6 +165,7 @@
         </button>
       </form>
     </section>
+
   </main>
 
   <footer class="border-t border-slate-800 px-6 py-6 text-xs text-slate-500 flex justify-between max-w-5xl mx-auto">
@@ -159,12 +177,10 @@
   </footer>
 
   <script>
-    // Parallax scroll motion
+    // Parallax scroll motion for hero
     window.addEventListener('scroll', () => {
-      const elements = document.querySelectorAll('.parallax-layer');
-      const scrolled = window.scrollY;
-      elements.forEach(el => {
-        el.style.transform = `translateY(${scrolled * 0.05}px)`;
+      document.querySelectorAll('.parallax-layer').forEach(el => {
+        el.style.transform = `translateY(${window.scrollY * 0.05}px)`;
       });
     });
   </script>
