@@ -25,23 +25,20 @@
   </script>
 
   <style>
-    /* Subtle pulse */
     @keyframes pulse-slow {
       0%, 100% { opacity: 0.35; }
       50% { opacity: 0.5; }
     }
-    .animate-pulse-slow {
-      animation: pulse-slow 6s ease-in-out infinite;
+    .animate-pulse-slow { animation: pulse-slow 6s ease-in-out infinite; }
+
+    /* Scrollable phone mockup */
+    .phone-screen {
+      height: 520px;
+      overflow-y: scroll;
+      scrollbar-width: none;
     }
-
-    /* Hide scrollbars in hero mockup */
-    .no-scrollbar::-webkit-scrollbar { display: none; }
-    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-    /* Parallax layer base transform */
-    .parallax-layer {
-      transform: translateY(0px);
-      transition: transform 0.2s ease-out;
+    .phone-screen::-webkit-scrollbar {
+      display: none;
     }
   </style>
 </head>
@@ -54,7 +51,6 @@
       <div class="h-8 w-8 bg-brand-primary rounded-xl flex items-center justify-center text-black font-bold">Ž</div>
       <span class="font-semibold text-lg">Žodis</span>
     </div>
-
     <nav class="hidden sm:flex gap-6 text-sm text-slate-300">
       <a href="#features" class="hover:text-brand-text">Features</a>
       <a href="#screens" class="hover:text-brand-text">Screenshots</a>
@@ -65,7 +61,7 @@
   <main>
 
     <!-- HERO SECTION -->
-    <section class="px-6 py-14 max-w-6xl mx-auto text-center">
+    <section class="px-6 py-14 max-w-5xl mx-auto text-center">
       <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight">
         Learn <span class="text-brand-primary">real Lithuanian</span>, not robotic translations.
       </h1>
@@ -75,109 +71,105 @@
         Hear native audio, learn natural tone, and build a personalised phrasebook.
       </p>
 
-      <a href="#beta" class="inline-block mt-6 bg-brand-primary text-black font-semibold px-6 py-3 rounded-full shadow-xl hover:bg-brand-secondary text-sm">
+      <a href="#beta" class="inline-block mt-6 bg-brand-primary text-black font-semibold px-8 py-3 rounded-full shadow-xl hover:bg-brand-secondary text-sm">
         Join Beta
       </a>
 
-      <!-- HERO PHONE MOCKUP -->
+      <!-- Large Phone Mockup -->
       <div class="mt-14 flex justify-center">
-        <div class="relative w-[260px] sm:w-[340px] md:w-[420px] lg:w-[500px] group">
+        <div class="relative w-[340px] sm:w-[400px] group">
 
-          <!-- Glow behind phone -->
-          <div class="absolute inset-0 -z-10 bg-gradient-to-b from-brand-primary/10 via-transparent to-brand-primary/5 blur-3xl"></div>
+          <!-- Glow -->
+          <div class="absolute inset-0 -z-10 bg-gradient-to-b from-brand-primary/20 via-transparent to-brand-primary/10 blur-3xl"></div>
           <div class="absolute inset-0 rounded-[2rem] bg-brand-primary/20 blur-2xl opacity-40 animate-pulse-slow"></div>
 
-          <!-- Phone frame -->
-          <div class="relative rounded-[2rem] bg-black border border-slate-800 shadow-2xl p-3 transition duration-300 group-hover:brightness-75">
-
-            <!-- Scrollable phone screen interior -->
-            <div class="rounded-3xl overflow-y-scroll no-scrollbar h-[600px] border border-slate-800">
-              <img src="hero-translation.jpg" alt="Žodis translation screenshot" class="w-full parallax-layer" />
+          <!-- Phone Frame -->
+          <div class="relative rounded-[2rem] bg-black border border-slate-800 shadow-2xl p-4 group-hover:brightness-90 transition">
+            <div class="rounded-3xl overflow-hidden border border-slate-800 phone-screen">
+              <img src="/hero-translation.jpg" alt="Žodis translation screenshot" class="w-full h-auto" />
             </div>
-
           </div>
         </div>
       </div>
     </section>
 
-    <!-- FEATURES SECTION -->
-    <section id="features" class="border-t border-slate-800 px-6 py-14 max-w-6xl mx-auto text-left">
-      <h2 class="text-2xl font-semibold mb-6">What Žodis helps you do</h2>
+    <!-- FEATURES -->
+    <section id="features" class="border-t border-slate-800 px-6 py-16 max-w-6xl mx-auto text-left">
+      <h2 class="text-2xl font-semibold mb-10">What Žodis helps you do</h2>
 
-      <div class="grid md:grid-cols-2 gap-10 text-slate-300 text-sm leading-relaxed">
+      <div class="grid md:grid-cols-2 gap-12 text-slate-300 text-sm leading-relaxed">
         <div class="space-y-4">
           <h3 class="text-lg font-semibold text-brand-primary">Learn real Lithuanian — not textbook Lithuanian</h3>
-          <p>Žodis focuses on phrases people actually use in Lithuania: the way partners speak, the way friends joke, the way shop assistants greet you, and the way people naturally phrase things in daily life.</p>
-          <p>Every phrase includes clear Lithuanian audio and pronunciation guidance, so you learn tone, emphasis, and rhythm — something Google Translate simply doesn't deliver.</p>
+          <p>Žodis focuses on phrases people actually use: partners, shops, jokes, and real social interactions.</p>
+          <p>Every phrase includes native audio so you learn tone and rhythm.</p>
         </div>
 
         <div class="space-y-4">
           <h3 class="text-lg font-semibold text-brand-primary">Built for expats, partners, and newcomers</h3>
-          <p>Whether you're here for work, studying, moving in with Lithuanian family, or just trying to feel more confident in conversations, Žodis adapts to your needs. Choose who you're speaking to (neutral, male, female) and the tone you want (friendly, neutral, polite).</p>
-          <p>The app shapes the Lithuanian for you automatically.</p>
+          <p>Choose who you're speaking to (neutral, male, female) and tone (friendly, neutral, polite).</p>
+          <p>The app adapts Lithuanian automatically.</p>
         </div>
 
         <div class="space-y-4">
-          <h3 class="text-lg font-semibold text-brand-primary">Create your own personalised phrasebook</h3>
-          <p>Save phrases with one tap. Organise your library with categories like Phrases, Questions, Words, and Numbers — just like inside the app.</p>
-          <p>Your phrasebook grows with you, becoming your personal Lithuanian toolkit.</p>
+          <h3 class="text-lg font-semibold text-brand-primary">Create a personalised phrasebook</h3>
+          <p>Save every phrase with one tap. Organise your library into Phrases, Questions, Words, and Numbers.</p>
         </div>
 
         <div class="space-y-4">
-          <h3 class="text-lg font-semibold text-brand-primary">Speak with clarity — even as a beginner</h3>
-          <p>Play Lithuanian audio at normal or slow speeds to perfect tone and rhythm.</p>
-          <p>Each phrase includes literal and natural English translations so you understand how Lithuanians think.</p>
+          <h3 class="text-lg font-semibold text-brand-primary">Speak with clarity</h3>
+          <p>Play Lithuanian audio at normal or slow speeds. Learn pronunciation naturally.</p>
         </div>
       </div>
     </section>
 
-    <!-- SCREENSHOTS SECTION -->
-    <section id="screens" class="border-t border-slate-800 px-6 py-12 max-w-6xl mx-auto">
-      <h2 class="text-xl font-semibold mb-6">App Screenshots</h2>
+    <!-- SCREENSHOTS -->
+    <section id="screens" class="border-t border-slate-800 px-6 py-16 max-w-6xl mx-auto">
+      <h2 class="text-xl font-semibold mb-10">App Screenshots</h2>
 
-      <div class="grid sm:grid-cols-3 gap-6">
+      <div class="grid sm:grid-cols-3 gap-10">
 
-        <!-- Device-like frame -->
-        <div class="aspect-[9/19] w-full overflow-hidden rounded-2xl border border-slate-800">
-          <img src="screen-home.jpg" class="w-full h-full object-cover" />
+        <!-- Scrollable phone mockup 1 -->
+        <div class="rounded-3xl border border-slate-800 p-4 shadow-xl bg-black/40">
+          <div class="rounded-3xl overflow-hidden border border-slate-700 phone-screen">
+            <img src="/screen-home.jpg" class="w-full h-auto" />
+          </div>
         </div>
 
-        <div class="aspect-[9/19] w-full overflow-hidden rounded-2xl border border-slate-800">
-          <img src="screen-library.jpg" class="w-full h-full object-cover" />
+        <!-- Scrollable phone mockup 2 -->
+        <div class="rounded-3xl border border-slate-800 p-4 shadow-xl bg-black/40">
+          <div class="rounded-3xl overflow-hidden border border-slate-700 phone-screen">
+            <img src="/screen-library.jpg" class="w-full h-auto" />
+          </div>
         </div>
 
-        <div class="aspect-[9/19] w-full overflow-hidden rounded-2xl border border-slate-800">
-          <img src="screen-settings.jpg" class="w-full h-full object-cover" />
+        <!-- Scrollable phone mockup 3 -->
+        <div class="rounded-3xl border border-slate-800 p-4 shadow-xl bg-black/40">
+          <div class="rounded-3xl overflow-hidden border border-slate-700 phone-screen">
+            <img src="/screen-settings.jpg" class="w-full h-auto" />
+          </div>
         </div>
 
       </div>
     </section>
 
     <!-- BETA SIGNUP -->
-    <section id="beta" class="border-t border-slate-800 px-6 py-12 max-w-4xl mx-auto">
+    <section id="beta" class="border-t border-slate-800 px-6 py-16 max-w-4xl mx-auto">
       <h2 class="text-xl font-semibold mb-4">Join the pre-launch beta</h2>
 
-      <form action="https://formspree.io/f/your-form-id" method="POST"
-        class="space-y-4 bg-black/60 p-6 rounded-xl border border-slate-800">
-
+      <form action="https://formspree.io/f/your-form-id" method="POST" class="space-y-4 bg-black/60 p-6 rounded-xl border border-slate-800">
         <div>
           <label class="block text-xs mb-1 text-slate-400">Email</label>
-          <input type="email" name="email" required
-                 class="w-full bg-black border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-50"
-                 placeholder="you@example.com" />
+          <input type="email" name="email" required class="w-full bg-black border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-50" placeholder="you@example.com" />
         </div>
 
-        <button type="submit"
-          class="w-full bg-brand-primary text-black font-semibold px-4 py-2 rounded-full hover:bg-brand-secondary text-sm">
+        <button type="submit" class="w-full bg-brand-primary text-black font-semibold px-4 py-2 rounded-full hover:bg-brand-secondary text-sm">
           Join Beta
         </button>
-
       </form>
     </section>
 
   </main>
 
-  <!-- FOOTER -->
   <footer class="border-t border-slate-800 px-6 py-6 text-xs text-slate-500 flex justify-between max-w-5xl mx-auto">
     <span>© 2025 Žodis — Created by David Lang with love and care.</span>
     <div class="flex gap-4">
@@ -185,17 +177,6 @@
       <a href="mailto:hello@zodis.app" class="hover:text-slate-300">Contact</a>
     </div>
   </footer>
-
-  <script>
-    // Parallax scroll motion
-    window.addEventListener('scroll', () => {
-      const elements = document.querySelectorAll('.parallax-layer');
-      const scrolled = window.scrollY;
-      elements.forEach(el => {
-        el.style.transform = `translateY(${scrolled * 0.05}px)`;
-      });
-    });
-  </script>
 
 </body>
 </html>
