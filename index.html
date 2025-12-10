@@ -4,7 +4,9 @@
   <meta charset="utf-8" />
   <title>Žodis – Learn Lithuanian the way it’s really spoken</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Žodis is a multilingual phrase trainer that helps you learn real Lithuanian, with native audio, tone, and a personalised phrasebook." />
+  <meta name="description"
+        content="Žodis is a multilingual phrase trainer that helps you learn real Lithuanian, with native audio, tone, and a personalised phrasebook." />
+
   <script src="https://cdn.tailwindcss.com"></script>
 
   <script>
@@ -27,8 +29,9 @@
   <style>
     @keyframes pulse-slow {
       0%, 100% { opacity: 0.35; }
-      50% { opacity: 0.5; }
+      50% { opacity: 0.55; }
     }
+
     .animate-pulse-slow {
       animation: pulse-slow 6s ease-in-out infinite;
     }
@@ -37,19 +40,20 @@
       transition: transform 0.2s ease-out;
     }
 
-    /* Phone aspect ratio */
+    /* 9:19.5 phone aspect ratio */
     .phone-frame {
       aspect-ratio: 9 / 19.5;
     }
 
-    /* SUPER CLEAN PREMIUM SCROLLBAR */
-    .hide-scrollbar::-webkit-scrollbar {
-      width: 0;
-      height: 0;
-    }
-    .hide-scrollbar {
-      scrollbar-width: none;
-      -ms-overflow-style: none;
+    /* Minimal premium invisible scrollbar */
+    .hide-scrollbar::-webkit-scrollbar { width: 0; height: 0; }
+    .hide-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+
+    /* Subtle matte glass frame */
+    .matte-frame {
+      background: rgba(15, 15, 15, 0.8);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
     }
   </style>
 </head>
@@ -72,7 +76,7 @@
   <main>
 
     <!-- HERO -->
-    <section class="px-6 py-14 max-w-6xl mx-auto text-center">
+    <section class="px-6 py-16 max-w-6xl mx-auto text-center">
       <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight">
         Learn <span class="text-brand-primary">real Lithuanian</span>, not robotic translations.
       </h1>
@@ -82,28 +86,26 @@
         Hear native audio, learn natural tone, and build a personalised phrasebook.
       </p>
 
-      <a href="#beta" class="inline-block mt-6 bg-brand-primary text-black font-semibold px-6 py-3 rounded-full shadow-xl hover:bg-brand-secondary text-sm">
+      <a href="#beta"
+        class="inline-block mt-6 bg-brand-primary text-black font-semibold px-6 py-3 rounded-full shadow-xl hover:bg-brand-secondary text-sm transition">
         Join Beta
       </a>
 
-      <!-- HERO PHONE FRAME (now 75% width) -->
-      <div class="mt-12 flex justify-center">
+      <!-- HERO PHONE FRAME (75% width, matte, scrollable) -->
+      <div class="mt-14 flex justify-center">
         <div class="relative w-[75%] max-w-2xl group">
 
-          <!-- Glow -->
-          <div class="absolute inset-0 -z-10 bg-gradient-to-b from-brand-primary/10 via-transparent to-brand-primary/5 blur-3xl"></div>
-          <div class="absolute inset-0 rounded-[2rem] bg-brand-primary/20 blur-2xl opacity-40 animate-pulse-slow"></div>
+          <!-- Glow behind -->
+          <div class="absolute inset-0 -z-10 bg-gradient-to-b from-brand-primary/15 via-black to-transparent blur-3xl opacity-70"></div>
+          <div class="absolute inset-0 rounded-[2rem] bg-brand-primary/10 blur-2xl opacity-40 animate-pulse-slow"></div>
 
-          <!-- Phone body -->
-          <div class="relative rounded-[2rem] bg-black border border-slate-800 shadow-2xl p-4 group-hover:brightness-75 transition duration-300">
+          <!-- Phone body (matte) -->
+          <div class="relative rounded-[2rem] matte-frame shadow-2xl p-4 group-hover:brightness-90 transition duration-300">
 
-            <!-- Scrollable viewport -->
             <div class="rounded-3xl overflow-y-scroll overflow-x-hidden border border-slate-800 phone-frame hide-scrollbar">
-              <img
-                src="/public/hero-translation.jpg"
-                alt="Žodis translation screenshot"
-                class="w-full h-auto parallax-layer"
-              />
+              <img src="/public/hero-translation.jpg"
+                   alt="Žodis translation screenshot"
+                   class="w-full h-auto parallax-layer" />
             </div>
 
           </div>
@@ -112,10 +114,10 @@
     </section>
 
     <!-- FEATURES -->
-    <section id="features" class="border-t border-slate-800 px-6 py-14 max-w-6xl mx-auto text-left">
-      <h2 class="text-2xl font-semibold mb-6">What Žodis helps you do</h2>
+    <section id="features" class="border-t border-slate-800 px-6 py-16 max-w-6xl mx-auto text-left">
+      <h2 class="text-2xl font-semibold mb-8">What Žodis helps you do</h2>
 
-      <div class="grid md:grid-cols-2 gap-10 text-slate-300 text-sm leading-relaxed">
+      <div class="grid md:grid-cols-2 gap-12 text-slate-300 text-sm leading-relaxed">
         <div class="space-y-4">
           <h3 class="text-lg font-semibold text-brand-primary">Learn real Lithuanian — not textbook Lithuanian</h3>
           <p>Žodis focuses on phrases people actually use...</p>
@@ -139,21 +141,21 @@
     </section>
 
     <!-- SCREENSHOTS -->
-    <section id="screens" class="border-t border-slate-800 px-6 py-12 max-w-6xl mx-auto">
-      <h2 class="text-xl font-semibold mb-6">App Screenshots</h2>
+    <section id="screens" class="border-t border-slate-800 px-6 py-16 max-w-6xl mx-auto">
+      <h2 class="text-xl font-semibold mb-8">App Screenshots</h2>
 
-      <div class="grid sm:grid-cols-3 gap-6">
+      <div class="grid sm:grid-cols-3 gap-8">
 
         <!-- Screenshot Card -->
-        <div class="border border-slate-800 rounded-2xl overflow-hidden bg-black phone-frame hide-scrollbar overflow-y-scroll">
+        <div class="border border-slate-800 rounded-3xl overflow-hidden matte-frame hide-scrollbar overflow-y-scroll phone-frame">
           <img src="/public/screen-home.jpg" class="w-full h-auto" />
         </div>
 
-        <div class="border border-slate-800 rounded-2xl overflow-hidden bg-black phone-frame hide-scrollbar overflow-y-scroll">
+        <div class="border border-slate-800 rounded-3xl overflow-hidden matte-frame hide-scrollbar overflow-y-scroll phone-frame">
           <img src="/public/screen-library.jpg" class="w-full h-auto" />
         </div>
 
-        <div class="border border-slate-800 rounded-2xl overflow-hidden bg-black phone-frame hide-scrollbar overflow-y-scroll">
+        <div class="border border-slate-800 rounded-3xl overflow-hidden matte-frame hide-scrollbar overflow-y-scroll phone-frame">
           <img src="/public/screen-settings.jpg" class="w-full h-auto" />
         </div>
 
@@ -161,16 +163,21 @@
     </section>
 
     <!-- BETA -->
-    <section id="beta" class="border-t border-slate-800 px-6 py-12 max-w-4xl mx-auto">
+    <section id="beta" class="border-t border-slate-800 px-6 py-16 max-w-4xl mx-auto">
       <h2 class="text-xl font-semibold mb-4">Join the pre-launch beta</h2>
 
-      <form action="https://formspree.io/f/your-form-id" method="POST" class="space-y-4 bg-black/60 p-6 rounded-xl border border-slate-800">
+      <form action="https://formspree.io/f/your-form-id"
+            method="POST"
+            class="space-y-4 bg-black/60 p-6 rounded-xl border border-slate-800">
         <div>
           <label class="block text-xs mb-1 text-slate-400">Email</label>
-          <input type="email" name="email" required class="w-full bg-black border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-50" placeholder="you@example.com" />
+          <input type="email" name="email" required
+                 class="w-full bg-black border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-50"
+                 placeholder="you@example.com" />
         </div>
 
-        <button type="submit" class="w-full bg-brand-primary text-black font-semibold px-4 py-2 rounded-full hover:bg-brand-secondary text-sm">
+        <button type="submit"
+                class="w-full bg-brand-primary text-black font-semibold px-4 py-2 rounded-full hover:bg-brand-secondary text-sm transition">
           Join Beta
         </button>
       </form>
@@ -178,7 +185,7 @@
 
   </main>
 
-  <footer class="border-t border-slate-800 px-6 py-6 text-xs text-slate-500 flex justify-between max-w-5xl mx-auto">
+  <footer class="border-t border-slate-800 px-6 py-8 text-xs text-slate-500 flex justify-between max-w-5xl mx-auto">
     <span>© 2025 Žodis — Created by David Lang with love and care.</span>
     <div class="flex gap-4">
       <a href="/privacy" class="hover:text-slate-300">Privacy Policy</a>
@@ -187,7 +194,7 @@
   </footer>
 
   <script>
-    // Parallax scroll for hero
+    // Parallax scroll motion
     window.addEventListener('scroll', () => {
       document.querySelectorAll('.parallax-layer').forEach(el => {
         el.style.transform = `translateY(${window.scrollY * 0.05}px)`;
