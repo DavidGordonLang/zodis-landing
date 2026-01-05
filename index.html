@@ -49,33 +49,34 @@
       overflow: hidden;
     }
 
+    /* Huge logo, mild blur, low opacity */
     .bg-logo {
       position: absolute;
       left: 50%;
-      top: 0;
-      width: min(1200px, 95vw);
+      top: 45vh;
+      width: min(2400px, 160vw);
       height: auto;
-      transform: translate(-50%, 0);
-      opacity: 0.18;
-      filter: blur(22px);
+      transform: translate(-50%, -50%);
+      opacity: 0.26;
+      filter: blur(10px);
       will-change: transform;
     }
 
-    /* Slight extra glow behind the logo */
+    /* Subtle green glow behind it */
     .bg-logo-glow {
       position: absolute;
       left: 50%;
-      top: 0;
-      width: min(1400px, 105vw);
-      height: min(1400px, 105vw);
-      transform: translate(-50%, 0);
-      background: radial-gradient(circle at center, rgba(37,194,110,0.22), transparent 60%);
-      filter: blur(40px);
+      top: 45vh;
+      width: min(2800px, 185vw);
+      height: min(2800px, 185vw);
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle at center, rgba(37,194,110,0.26), transparent 62%);
+      filter: blur(48px);
       opacity: 0.55;
       will-change: transform;
     }
 
-    /* Ensure actual site content sits above the background */
+    /* Ensure content is above the background */
     .site-layer {
       position: relative;
       z-index: 10;
@@ -89,7 +90,7 @@
   <div class="bg-logo-wrap" aria-hidden="true">
     <div class="bg-logo-glow" id="bgLogoGlow"></div>
     <img
-      src="/bg-logo.png"
+      src="/public/bg-logo.png"
       alt=""
       class="bg-logo"
       id="bgLogo"
@@ -137,7 +138,7 @@
 
             <div class="relative rounded-[2rem] bg-black border border-slate-800 shadow-2xl p-4 group-hover:brightness-75 transition duration-300">
               <div class="rounded-3xl overflow-y-scroll overflow-x-hidden border border-slate-800 phone-frame hide-scrollbar">
-                <img src="/hero-translation.jpg" class="w-full h-auto parallax-layer" />
+                <img src="/public/hero-translation.jpg" class="w-full h-auto parallax-layer" />
               </div>
             </div>
 
@@ -175,15 +176,15 @@
         <div class="grid sm:grid-cols-3 gap-6">
 
           <div class="border border-slate-800 rounded-2xl overflow-hidden bg-black phone-frame hide-scrollbar overflow-y-scroll">
-            <img src="/screen-home.jpg" class="w-full h-auto" />
+            <img src="/public/screen-home.jpg" class="w-full h-auto" />
           </div>
 
           <div class="border border-slate-800 rounded-2xl overflow-hidden bg-black phone-frame hide-scrollbar overflow-y-scroll">
-            <img src="/screen-library.jpg" class="w-full h-auto" />
+            <img src="/public/screen-library.jpg" class="w-full h-auto" />
           </div>
 
           <div class="border border-slate-800 rounded-2xl overflow-hidden bg-black phone-frame hide-scrollbar overflow-y-scroll">
-            <img src="/screen-settings.jpg" class="w-full h-auto" />
+            <img src="/public/screen-settings.jpg" class="w-full h-auto" />
           </div>
 
         </div>
@@ -282,20 +283,20 @@
     const bgLogo = document.getElementById("bgLogo");
     const bgLogoGlow = document.getElementById("bgLogoGlow");
 
-    // Lower number = slower movement = feels further away
-    const BG_PARALLAX_SPEED = 0.02;
+    // Smaller = slower (feels further away)
+    const BG_PARALLAX_SPEED = 0.015;
 
     function updateBgParallax() {
       const y = window.scrollY * BG_PARALLAX_SPEED;
 
-      // Start a bit higher so it sits behind the hero nicely
-      const baseOffset = -120;
+      // Base offset keeps the logo centered around ~45vh
+      const baseOffset = 0;
 
       if (bgLogo) {
-        bgLogo.style.transform = `translate(-50%, ${baseOffset + y}px)`;
+        bgLogo.style.transform = `translate(-50%, calc(-50% + ${baseOffset + y}px))`;
       }
       if (bgLogoGlow) {
-        bgLogoGlow.style.transform = `translate(-50%, ${baseOffset + y}px)`;
+        bgLogoGlow.style.transform = `translate(-50%, calc(-50% + ${baseOffset + y}px))`;
       }
     }
 
@@ -305,8 +306,8 @@
     // -----------------------------
     // Supabase (REST) Beta Signup
     // -----------------------------
-    const SUPABASE_URL = "https://gnbnicrxlioamzcxqjqk.supabase.co"; // <- your project URL
-    const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_lmgd2J37R2xSg2HeC5Yzhw_R_AHXbIF"; // <- paste publishable key
+    const SUPABASE_URL = "https://gnbnicrxlioamzcxqjqk.supabase.co";
+    const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_lmgd2J37R2xSg2HeC5Yzhw_R_AHXbIF";
 
     const form = document.getElementById("betaForm");
     const emailEl = document.getElementById("email");
@@ -320,7 +321,7 @@
 
     function showMessage(kind, text) {
       msgEl.classList.remove("hidden");
-      msgEl.className = "mt-4 rounded-lg border px-4 py-3 text-sm"; // reset
+      msgEl.className = "mt-4 rounded-lg border px-4 py-3 text-sm";
       if (kind === "success") {
         msgEl.classList.add("border-green-600/40", "bg-green-500/10", "text-green-200");
       } else if (kind === "warning") {
@@ -351,7 +352,6 @@
       const email = (emailEl.value || "").trim().toLowerCase();
       const note = (noteEl.value || "").trim();
 
-      // Basic validation
       if (!email) {
         showMessage("error", "Please enter your email.");
         emailEl.focus();
@@ -393,14 +393,12 @@
           return;
         }
 
-        // If you added the unique index, duplicate emails typically surface as a 409 or a Postgres error payload
         let errText = "";
         try {
           const j = await res.json();
           errText = (j && (j.message || j.details || j.hint || j.error)) ? String(j.message || j.details || j.hint || j.error) : "";
         } catch (_) {}
 
-        // Friendly duplicate handling (best-effort across different error shapes)
         const lower = (errText || "").toLowerCase();
         if (res.status === 409 || lower.includes("duplicate") || lower.includes("unique") || lower.includes("already")) {
           showMessage("warning", "You’re already on the list with that email. If you want to update your note, message me and I’ll sort it.");
