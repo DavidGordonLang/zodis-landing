@@ -100,29 +100,33 @@
   <div class="site-layer">
 
     <!-- HEADER -->
-    <header class="border-b border-slate-800 p-4 flex justify-between items-center bg-black/90">
-    <div class="flex items-center gap-4">
-  <div class="relative flex items-center justify-center">
-    <img
-      src="/public/bg-logo.png"
-      alt="Žodis logo"
-      class="h-20 w-20 object-contain"
-    />
-    <div class="absolute inset-0 bg-brand-primary/40 blur-xl -z-10 rounded-full"></div>
+    <header class="sticky top-0 z-50 border-b border-slate-800/80 bg-black/55 backdrop-blur-md">
+  <div class="max-w-6xl mx-auto px-4 py-2 flex justify-between items-center">
+    <!-- Brand -->
+    <div class="flex items-center gap-3">
+      <div class="relative w-12 h-12 flex items-center justify-center shrink-0">
+        <img
+          src="/public/bg-logo.png"
+          alt="Žodis logo"
+          class="w-12 h-12 object-contain"
+        />
+        <div class="absolute inset-0 bg-brand-primary/30 blur-lg -z-10 rounded-full"></div>
+      </div>
+
+      <!-- Optical alignment: nudge text slightly up -->
+      <span class="font-semibold text-xl leading-none -translate-y-[1px]">
+        Žodis
+      </span>
+    </div>
+
+    <!-- Nav -->
+    <nav class="hidden sm:flex gap-6 text-sm text-slate-300">
+      <a href="#features" class="hover:text-brand-text">Features</a>
+      <a href="#screens" class="hover:text-brand-text">Screenshots</a>
+      <a href="#beta" class="hover:text-brand-text">Beta Access</a>
+    </nav>
   </div>
-
-  <span class="font-semibold text-2xl leading-none relative top-[2px]">
-    Žodis
-  </span>
-</div>
-      <nav class="hidden sm:flex gap-6 text-sm text-slate-300">
-        <a href="#features" class="hover:text-brand-text">Features</a>
-        <a href="#screens" class="hover:text-brand-text">Screenshots</a>
-        <a href="#beta" class="hover:text-brand-text">Beta Access</a>
-      </nav>
-    </header>
-
-    <main>
+</header>
 
       <!-- HERO -->
       <section class="px-6 py-14 max-w-6xl mx-auto text-center">
