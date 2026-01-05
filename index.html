@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <title>Žodis – Learn Lithuanian the way it’s really spoken</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Žodis is a multilingual phrase trainer that helps you learn real Lithuanian with native audio, natural tone, and a personalised phrasebook." />
+  <meta name="description" content="Žodis helps you say what you actually mean in Lithuanian — with tailored translations, native audio, and a cross-device phrasebook you build as you go." />
   <script src="https://cdn.tailwindcss.com"></script>
 
   <script>
@@ -29,12 +29,8 @@
       0%, 100% { opacity: 0.35; }
       50% { opacity: 0.5; }
     }
-    .animate-pulse-slow {
-      animation: pulse-slow 6s ease-in-out infinite;
-    }
-    .phone-frame {
-      aspect-ratio: 9 / 19.5;
-    }
+    .animate-pulse-slow { animation: pulse-slow 6s ease-in-out infinite; }
+    .phone-frame { aspect-ratio: 9 / 19.5; }
     .hide-scrollbar::-webkit-scrollbar { width: 0; height: 0; }
     .hide-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
 
@@ -101,47 +97,54 @@
 
     <!-- HEADER -->
     <header class="sticky top-0 z-50 border-b border-slate-800/80 bg-black/55 backdrop-blur-md">
-  <div class="max-w-6xl mx-auto px-4 py-2 flex justify-between items-center">
-    <!-- Brand -->
-    <div class="flex items-center gap-3">
-      <div class="relative w-12 h-12 flex items-center justify-center shrink-0">
-        <img
-          src="/public/bg-logo.png"
-          alt="Žodis logo"
-          class="w-12 h-12 object-contain"
-        />
-        <div class="absolute inset-0 bg-brand-primary/30 blur-lg -z-10 rounded-full"></div>
+      <div class="max-w-6xl mx-auto px-4 py-2 flex justify-between items-center">
+        <!-- Brand -->
+        <div class="flex items-center gap-3">
+          <div class="relative w-12 h-12 flex items-center justify-center shrink-0">
+            <img
+              src="/public/bg-logo.png"
+              alt="Žodis logo"
+              class="w-12 h-12 object-contain"
+            />
+            <div class="absolute inset-0 bg-brand-primary/30 blur-lg -z-10 rounded-full"></div>
+          </div>
+
+          <!-- Optical alignment: nudge text slightly up -->
+          <span class="font-semibold text-xl leading-none -translate-y-[1px]">
+            Žodis
+          </span>
+        </div>
+
+        <!-- Nav -->
+        <nav class="hidden sm:flex gap-6 text-sm text-slate-300">
+          <a href="#features" class="hover:text-brand-text">Features</a>
+          <a href="#screens" class="hover:text-brand-text">Screenshots</a>
+          <a href="#beta" class="hover:text-brand-text">Beta Access</a>
+        </nav>
       </div>
+    </header>
 
-      <!-- Optical alignment: nudge text slightly up -->
-      <span class="font-semibold text-xl leading-none -translate-y-[1px]">
-        Žodis
-      </span>
-    </div>
-
-    <!-- Nav -->
-    <nav class="hidden sm:flex gap-6 text-sm text-slate-300">
-      <a href="#features" class="hover:text-brand-text">Features</a>
-      <a href="#screens" class="hover:text-brand-text">Screenshots</a>
-      <a href="#beta" class="hover:text-brand-text">Beta Access</a>
-    </nav>
-  </div>
-</header>
+    <main>
 
       <!-- HERO -->
       <section class="px-6 py-14 max-w-6xl mx-auto text-center">
         <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight">
-          Learn <span class="text-brand-primary">real Lithuanian</span>, not robotic translations.
+          Say what you <span class="text-brand-primary">actually mean</span> in Lithuanian.
         </h1>
 
         <p class="mt-4 text-slate-300 text-sm sm:text-base max-w-2xl mx-auto">
-          A phrase-first app designed for expats, partners, students, and travellers.
-          Hear native audio, learn natural tone, and build a personalised phrasebook.
+          Žodis is a phrase-first translator for real life. Type what you want to say, choose tone and voice,
+          and get a natural Lithuanian version you can <span class="text-slate-200">understand, pronounce, and reuse</span>.
         </p>
 
-        <a href="#beta" class="inline-block mt-6 bg-brand-primary text-black font-semibold px-6 py-3 rounded-full shadow-xl hover:bg-brand-secondary text-sm">
-          Request Beta Access
-        </a>
+        <div class="mt-6 flex flex-col sm:flex-row gap-3 justify-center items-center">
+          <a href="#beta" class="inline-block bg-brand-primary text-black font-semibold px-6 py-3 rounded-full shadow-xl hover:bg-brand-secondary text-sm">
+            Request Beta Access
+          </a>
+          <p class="text-xs text-slate-500">
+            Beta is intentionally small and personal — you’ll hear from me directly.
+          </p>
+        </div>
 
         <!-- HERO PHONE FRAME -->
         <div class="mt-12 flex justify-center">
@@ -158,58 +161,139 @@
 
           </div>
         </div>
+
+        <!-- Quick value bullets -->
+        <div class="mt-10 max-w-4xl mx-auto grid sm:grid-cols-3 gap-4 text-left">
+          <div class="rounded-2xl border border-slate-800 bg-black/40 p-5">
+            <div class="text-sm font-semibold text-slate-100">Tailored, not templated</div>
+            <p class="mt-2 text-sm text-slate-400 leading-relaxed">
+              You’re not picking from a phrasebook. You’re translating <span class="text-slate-200">your</span> message —
+              with tone options so it sounds like a human.
+            </p>
+          </div>
+
+          <div class="rounded-2xl border border-slate-800 bg-black/40 p-5">
+            <div class="text-sm font-semibold text-slate-100">Hear it spoken</div>
+            <p class="mt-2 text-sm text-slate-400 leading-relaxed">
+              Native audio helps you catch rhythm and emphasis.
+              Use slow playback when you’re learning.
+            </p>
+          </div>
+
+          <div class="rounded-2xl border border-slate-800 bg-black/40 p-5">
+            <div class="text-sm font-semibold text-slate-100">Build your own phrasebook</div>
+            <p class="mt-2 text-sm text-slate-400 leading-relaxed">
+              Save the useful ones, tag them, and find them later.
+              Your library follows you across devices.
+            </p>
+          </div>
+        </div>
       </section>
 
       <!-- FEATURES -->
       <section id="features" class="border-t border-slate-800 px-6 py-14 max-w-6xl mx-auto text-left">
-        <h2 class="text-2xl font-semibold mb-6">What Žodis helps you do</h2>
+        <h2 class="text-2xl font-semibold mb-2">What Žodis helps you do</h2>
+        <p class="text-slate-400 text-sm mb-8 max-w-3xl">
+          Most apps teach static phrases. Žodis is built for the moment you need to say something
+          specific — at the shop, with family, at work, or when you’re just trying to be yourself in a new language.
+        </p>
+
         <div class="grid md:grid-cols-2 gap-10 text-slate-300 text-sm leading-relaxed">
-          <div class="space-y-4">
-            <h3 class="text-lg font-semibold text-brand-primary">Learn real Lithuanian — not textbook Lithuanian</h3>
-            <p>Žodis focuses on phrases people actually use...</p>
+
+          <div class="space-y-3">
+            <h3 class="text-lg font-semibold text-brand-primary">Translate “what I mean”, not “what the book says”</h3>
+            <p>
+              Type English (or Lithuanian) the way you’d actually speak.
+              Žodis returns a Lithuanian version that aims for <span class="text-slate-200">natural intent</span>,
+              plus a clearer meaning so you can learn from it.
+            </p>
+            <p class="text-slate-400">
+              Helpful when you’re past beginner phrases but not fluent enough to freestyle.
+            </p>
           </div>
-          <div class="space-y-4">
-            <h3 class="text-lg font-semibold text-brand-primary">Built for expats, partners, and newcomers</h3>
-            <p>Whether you're here for work, studying...</p>
+
+          <div class="space-y-3">
+            <h3 class="text-lg font-semibold text-brand-primary">Choose tone, voice, and context</h3>
+            <p>
+              Lithuanian can feel “correct” but still sound off.
+              Tone choices nudge the phrasing toward how a native would say it in that mood.
+            </p>
+            <p class="text-slate-400">
+              It’s the difference between being understood… and sounding like you belong.
+            </p>
           </div>
-          <div class="space-y-4">
-            <h3 class="text-lg font-semibold text-brand-primary">Create your own personalised phrasebook</h3>
-            <p>Every phrase you translate can be saved...</p>
+
+          <div class="space-y-3">
+            <h3 class="text-lg font-semibold text-brand-primary">Save the ones that matter</h3>
+            <p>
+              Every good translation can be saved into your library — phrases, words, questions, numbers —
+              so your learning grows from real conversations.
+            </p>
+            <p class="text-slate-400">
+              Your library is searchable and syncs across devices.
+            </p>
           </div>
-          <div class="space-y-4">
-            <h3 class="text-lg font-semibold text-brand-primary">Speak with clarity — even as a beginner</h3>
-            <p>Play Lithuanian audio at normal or slow speeds...</p>
+
+          <div class="space-y-3">
+            <h3 class="text-lg font-semibold text-brand-primary">Hear it. Repeat it. Get comfortable.</h3>
+            <p>
+              Audio is non-negotiable for pronunciation and confidence.
+              Play it normally, slow it down, and build muscle memory.
+            </p>
+            <p class="text-slate-400">
+              Ideal for partners of Lithuanians, expats, and anyone learning “street real” Lithuanian.
+            </p>
           </div>
+
+        </div>
+
+        <!-- Beta note -->
+        <div class="mt-10 rounded-2xl border border-slate-800 bg-black/40 p-6">
+          <h3 class="text-base font-semibold text-slate-100">A quick beta note</h3>
+          <p class="mt-2 text-sm text-slate-400 leading-relaxed">
+            This is a small, hands-on beta. I’m deliberately controlling access so I can respond to feedback quickly
+            and keep the experience stable while I tune things like UI comfort and real-world phrasing.
+          </p>
         </div>
       </section>
 
       <!-- SCREENSHOTS -->
       <section id="screens" class="border-t border-slate-800 px-6 py-12 max-w-6xl mx-auto">
-        <h2 class="text-xl font-semibold mb-6">App Screenshots</h2>
+        <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-6">
+          <h2 class="text-xl font-semibold">App Screenshots</h2>
+          <p class="text-sm text-slate-400 max-w-2xl">
+            These are real screens from the current beta build — designed for fast, on-the-fly use.
+          </p>
+        </div>
 
         <div class="grid sm:grid-cols-3 gap-6">
 
           <div class="border border-slate-800 rounded-2xl overflow-hidden bg-black phone-frame hide-scrollbar overflow-y-scroll">
-            <img src="/public/screen-home.jpg" class="w-full h-auto" />
+            <img src="/public/screen-home.jpg" class="w-full h-auto" alt="Žodis home screen" />
           </div>
 
           <div class="border border-slate-800 rounded-2xl overflow-hidden bg-black phone-frame hide-scrollbar overflow-y-scroll">
-            <img src="/public/screen-library.jpg" class="w-full h-auto" />
+            <img src="/public/screen-library.jpg" class="w-full h-auto" alt="Žodis library screen" />
           </div>
 
           <div class="border border-slate-800 rounded-2xl overflow-hidden bg-black phone-frame hide-scrollbar overflow-y-scroll">
-            <img src="/public/screen-settings.jpg" class="w-full h-auto" />
+            <img src="/public/screen-settings.jpg" class="w-full h-auto" alt="Žodis settings screen" />
           </div>
 
         </div>
+
+        <p class="text-xs text-slate-500 mt-6">
+          Tip: try it on mobile — the scrolling previews mirror the feel of the app.
+        </p>
       </section>
 
       <!-- BETA ACCESS -->
       <section id="beta" class="border-t border-slate-800 px-6 py-12 max-w-4xl mx-auto text-center">
-        <h2 class="text-2xl font-semibold mb-4">Request Beta Access</h2>
+        <h2 class="text-2xl font-semibold mb-3">Request Beta Access</h2>
 
-        <p class="text-slate-400 text-sm mb-6">
-          Enter your email to join the waitlist. You’ll receive a confirmation message on-screen.
+        <p class="text-slate-400 text-sm mb-6 max-w-2xl mx-auto">
+          Join the list and I’ll onboard you personally. If you add a short note (device + what you want to use Žodis for),
+          I can prioritise the most useful feedback first.
         </p>
 
         <div class="bg-black/60 p-6 rounded-xl border border-slate-800 max-w-xl mx-auto">
@@ -244,7 +328,7 @@
                   id="note"
                   name="note"
                   rows="3"
-                  placeholder="Anything you want me to know (device, experience level, what you want to use it for)…"
+                  placeholder="Device (Android/iOS), experience level, and what you’ll use Žodis for…"
                   class="mt-2 w-full rounded-lg bg-black border border-slate-700 px-4 py-3 text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-primary/60 focus:border-brand-primary resize-none"
                 ></textarea>
               </label>
@@ -264,19 +348,24 @@
 
             <div id="msg" class="hidden mt-4 rounded-lg border px-4 py-3 text-sm"></div>
 
-            <p class="text-xs text-slate-500 pt-2">
-              You’ll be added to the beta list. I’ll reach out personally with next steps.
+            <p class="text-xs text-slate-500 pt-2 leading-relaxed">
+              You’ll be added to the beta list with <span class="text-slate-300">pending</span> status until I open a slot.
+              I’m doing it this way to keep the beta stable and genuinely responsive.
             </p>
           </form>
 
         </div>
+
+        <p class="text-xs text-slate-600 mt-6">
+          Privacy: I only use your email for beta access and direct communication. No mailing list spam.
+        </p>
       </section>
 
     </main>
 
     <!-- FOOTER -->
     <footer class="border-t border-slate-800 px-6 py-6 text-xs text-slate-500 text-center max-w-5xl mx-auto">
-      © 2025 Žodis — Created by David Lang with love and care.
+      © 2026 Žodis — Created by David Lang.
     </footer>
 
   </div>
@@ -296,14 +385,10 @@
     // ---------------------------------------
     const bgLogo = document.getElementById("bgLogo");
     const bgLogoGlow = document.getElementById("bgLogoGlow");
-
-    // Smaller = slower (feels further away)
     const BG_PARALLAX_SPEED = 0.015;
 
     function updateBgParallax() {
       const y = window.scrollY * BG_PARALLAX_SPEED;
-
-      // Base offset keeps the logo centered around ~45vh
       const baseOffset = 0;
 
       if (bgLogo) {
