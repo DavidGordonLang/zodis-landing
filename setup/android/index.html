@@ -1,1 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Žodis Beta – Install on Android</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Install the Žodis beta app on Android as a PWA (Add to Home Screen)." />
+
+  <!-- discourage indexing -->
+  <meta name="robots" content="noindex, nofollow" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              primary: '#25C26E',
+              secondary: '#1FAF63',
+              text: '#4ADE80',
+              accent: '#21C985'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    .hide-scrollbar::-webkit-scrollbar { width: 0; height: 0; }
+    .hide-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+
+    /* subtle background wash */
+    .bg-wash {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(37,194,110,0.10), transparent 45%),
+        radial-gradient(circle at 80% 30%, rgba(37,194,110,0.08), transparent 55%),
+        radial-gradient(circle at 50% 90%, rgba(37,194,110,0.06), transparent 55%);
+      filter: blur(0px);
+    }
+    .site-layer { position: relative; z-index: 10; }
+  </style>
+</head>
+
+<body class="bg-black text-slate-50 antialiased">
+  <div class="bg-wash" aria-hidden="true"></div>
+
+  <div class="site-layer">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 border-b border-slate-800/80 bg-black/55 backdrop-blur-md">
+      <div class="max-w-3xl mx-auto px-4 py-2 flex items-center gap-3">
+        <div class="relative w-10 h-10 flex items-center justify-center shrink-0">
+          <img src="/public/bg-logo.png" alt="Žodis logo" class="w-10 h-10 object-contain" />
+          <div class="absolute inset-0 bg-brand-primary/25 blur-lg -z-10 rounded-full"></div>
+        </div>
+        <div class="-translate-y-[1px]">
+          <div class="font-semibold text-base leading-none">Žodis Beta</div>
+          <div class="text-xs text-slate-400 leading-none mt-1">Android install guide</div>
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-4 py-10">
+      <div class="text-center">
+        <h1 class="text-2xl sm:text-3xl font-semibold tracking-tight">
+          Install Žodis on <span class="text-brand-primary">Android</span>
+        </h1>
+        <p class="mt-3 text-slate-300 text-sm sm:text-base">
+          This installs Žodis like a real app (icon on your Home Screen, full-screen, quicker access).
+        </p>
+
+        <div class="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
+          <a
+            href="https://learning-lithuanian.vercel.app/"
+            class="inline-flex justify-center items-center bg-brand-primary text-black font-semibold px-6 py-3 rounded-full shadow-xl hover:bg-brand-secondary text-sm"
+          >
+            Open the app
+          </a>
+          <a
+            href="/"
+            class="inline-flex justify-center items-center border border-slate-700 text-slate-200 font-semibold px-6 py-3 rounded-full hover:border-slate-500 text-sm"
+          >
+            Back to Žodis home
+          </a>
+        </div>
+      </div>
+
+      <section class="mt-10 border border-slate-800 rounded-2xl bg-black/50 p-6">
+        <h2 class="text-lg font-semibold">Step-by-step</h2>
+        <ol class="mt-4 space-y-4 text-slate-300 text-sm leading-relaxed list-decimal list-inside">
+          <li>
+            Open the app in <span class="text-slate-100 font-semibold">Chrome</span>:
+            <span class="text-slate-100">learning-lithuanian.vercel.app</span>
+          </li>
+          <li>
+            Tap the <span class="text-slate-100 font-semibold">⋮ menu</span> (top right).
+          </li>
+          <li>
+            Tap <span class="text-slate-100 font-semibold">“Add to Home screen”</span>
+            (or sometimes <span class="text-slate-100 font-semibold">“Install app”</span>).
+          </li>
+          <li>
+            Confirm. You’ll now have a <span class="text-slate-100 font-semibold">Žodis</span> icon on your Home Screen.
+          </li>
+          <li>
+            Launch it from the Home Screen for the best experience (full-screen).
+          </li>
+        </ol>
+      </section>
+
+      <section class="mt-6 border border-slate-800 rounded-2xl bg-black/50 p-6">
+        <h2 class="text-lg font-semibold">Quick first-run checklist</h2>
+        <ul class="mt-4 space-y-3 text-slate-300 text-sm leading-relaxed list-disc list-inside">
+          <li><span class="text-slate-100 font-semibold">Sign in with Google</span> so your library syncs across devices.</li>
+          <li>Try a translation in <span class="text-slate-100 font-semibold">Home</span>, then save it to your <span class="text-slate-100 font-semibold">Library</span>.</li>
+          <li>In <span class="text-slate-100 font-semibold">Settings</span>, check your voice/audio options if something sounds off.</li>
+        </ul>
+      </section>
+
+      <section class="mt-6 border border-slate-800 rounded-2xl bg-black/50 p-6">
+        <h2 class="text-lg font-semibold">Common hiccups</h2>
+        <div class="mt-4 space-y-3 text-slate-300 text-sm leading-relaxed">
+          <p>
+            <span class="text-slate-100 font-semibold">I can’t see “Add to Home screen”.</span><br/>
+            Make sure you’re using Chrome (not an in-app browser), and you’re on the main app URL.
+          </p>
+          <p>
+            <span class="text-slate-100 font-semibold">Audio doesn’t play.</span><br/>
+            Some Android setups require you to tap once in the app before audio starts reliably. Try playing again after your first interaction.
+          </p>
+        </div>
+      </section>
+
+      <footer class="mt-10 text-center text-xs text-slate-500">
+        Private beta setup page (not publicly listed).
+      </footer>
+    </main>
+  </div>
+</body>
+</html>
 
