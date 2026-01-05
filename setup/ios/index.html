@@ -1,1 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Žodis Beta – Install on iPhone</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Install the Žodis beta app on iPhone as a PWA (Add to Home Screen)." />
+
+  <!-- discourage indexing -->
+  <meta name="robots" content="noindex, nofollow" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              primary: '#25C26E',
+              secondary: '#1FAF63',
+              text: '#4ADE80',
+              accent: '#21C985'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    .bg-wash {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(37,194,110,0.10), transparent 45%),
+        radial-gradient(circle at 80% 30%, rgba(37,194,110,0.08), transparent 55%),
+        radial-gradient(circle at 50% 90%, rgba(37,194,110,0.06), transparent 55%);
+    }
+    .site-layer { position: relative; z-index: 10; }
+  </style>
+</head>
+
+<body class="bg-black text-slate-50 antialiased">
+  <div class="bg-wash" aria-hidden="true"></div>
+
+  <div class="site-layer">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 border-b border-slate-800/80 bg-black/55 backdrop-blur-md">
+      <div class="max-w-3xl mx-auto px-4 py-2 flex items-center gap-3">
+        <div class="relative w-10 h-10 flex items-center justify-center shrink-0">
+          <img src="/public/bg-logo.png" alt="Žodis logo" class="w-10 h-10 object-contain" />
+          <div class="absolute inset-0 bg-brand-primary/25 blur-lg -z-10 rounded-full"></div>
+        </div>
+        <div class="-translate-y-[1px]">
+          <div class="font-semibold text-base leading-none">Žodis Beta</div>
+          <div class="text-xs text-slate-400 leading-none mt-1">iPhone install guide</div>
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-4 py-10">
+      <div class="text-center">
+        <h1 class="text-2xl sm:text-3xl font-semibold tracking-tight">
+          Install Žodis on <span class="text-brand-primary">iPhone</span>
+        </h1>
+        <p class="mt-3 text-slate-300 text-sm sm:text-base">
+          iOS needs one specific step: you must add it from <span class="text-slate-100 font-semibold">Safari</span>.
+        </p>
+
+        <div class="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
+          <a
+            href="https://learning-lithuanian.vercel.app/"
+            class="inline-flex justify-center items-center bg-brand-primary text-black font-semibold px-6 py-3 rounded-full shadow-xl hover:bg-brand-secondary text-sm"
+          >
+            Open the app
+          </a>
+          <a
+            href="/"
+            class="inline-flex justify-center items-center border border-slate-700 text-slate-200 font-semibold px-6 py-3 rounded-full hover:border-slate-500 text-sm"
+          >
+            Back to Žodis home
+          </a>
+        </div>
+      </div>
+
+      <section class="mt-10 border border-slate-800 rounded-2xl bg-black/50 p-6">
+        <h2 class="text-lg font-semibold">Step-by-step (Safari)</h2>
+        <ol class="mt-4 space-y-4 text-slate-300 text-sm leading-relaxed list-decimal list-inside">
+          <li>
+            Open the app in <span class="text-slate-100 font-semibold">Safari</span>:
+            <span class="text-slate-100">learning-lithuanian.vercel.app</span>
+          </li>
+          <li>
+            Tap the <span class="text-slate-100 font-semibold">Share</span> icon
+            (square with an arrow pointing up).
+          </li>
+          <li>
+            Scroll down and tap <span class="text-slate-100 font-semibold">“Add to Home Screen”</span>.
+          </li>
+          <li>
+            Confirm the name (Žodis) and tap <span class="text-slate-100 font-semibold">Add</span>.
+          </li>
+          <li>
+            Launch Žodis from the Home Screen icon (this is the “app-like” version).
+          </li>
+        </ol>
+      </section>
+
+      <section class="mt-6 border border-slate-800 rounded-2xl bg-black/50 p-6">
+        <h2 class="text-lg font-semibold">Quick first-run checklist</h2>
+        <ul class="mt-4 space-y-3 text-slate-300 text-sm leading-relaxed list-disc list-inside">
+          <li><span class="text-slate-100 font-semibold">Sign in with Google</span> so your library syncs across devices.</li>
+          <li>Try a translation in <span class="text-slate-100 font-semibold">Home</span>, then save it to your <span class="text-slate-100 font-semibold">Library</span>.</li>
+          <li>In <span class="text-slate-100 font-semibold">Settings</span>, check voice/audio options if something sounds off.</li>
+        </ul>
+      </section>
+
+      <section class="mt-6 border border-slate-800 rounded-2xl bg-black/50 p-6">
+        <h2 class="text-lg font-semibold">Common iPhone hiccups</h2>
+        <div class="mt-4 space-y-3 text-slate-300 text-sm leading-relaxed">
+          <p>
+            <span class="text-slate-100 font-semibold">It doesn’t feel like an app.</span><br/>
+            Make sure you launched it from the Home Screen icon, not from Safari tabs.
+          </p>
+          <p>
+            <span class="text-slate-100 font-semibold">“Add to Home Screen” isn’t showing.</span><br/>
+            You’re probably in an in-app browser (Instagram, Gmail, etc). Copy the link and open it in Safari directly.
+          </p>
+        </div>
+      </section>
+
+      <footer class="mt-10 text-center text-xs text-slate-500">
+        Private beta setup page (not publicly listed).
+      </footer>
+    </main>
+  </div>
+</body>
+</html>
 
