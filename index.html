@@ -35,14 +35,8 @@
     .phone-frame {
       aspect-ratio: 9 / 19.5;
     }
-    .hide-scrollbar::-webkit-scrollbar {
-      width: 0;
-      height: 0;
-    }
-    .hide-scrollbar {
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-    }
+    .hide-scrollbar::-webkit-scrollbar { width: 0; height: 0; }
+    .hide-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
   </style>
 </head>
 
@@ -141,24 +135,68 @@
 
     <!-- BETA ACCESS -->
     <section id="beta" class="border-t border-slate-800 px-6 py-12 max-w-4xl mx-auto text-center">
-      <h2 class="text-2xl font-semibold mb-6">Request Beta Access</h2>
+      <h2 class="text-2xl font-semibold mb-4">Request Beta Access</h2>
 
       <p class="text-slate-400 text-sm mb-6">
-        Enter your email to join the waitlist. You’ll receive a confirmation link.
+        Enter your email to join the waitlist. You’ll receive a confirmation message on-screen.
       </p>
 
-      <div class="bg-black/60 p-6 rounded-xl border border-slate-800">
+      <div class="bg-black/60 p-6 rounded-xl border border-slate-800 max-w-xl mx-auto">
 
-        <!-- WORKING BREVO IFRAME -->
-        <iframe 
-          width="540" 
-          height="305" 
-          src="https://6cdf01b9.sibforms.com/serve/MUIFAJ9Wl7_QegDS8xnoz4gUNufKHJZm7mQvMGlabqoDhXWeAlRyMY8lEK4vmV-goo6NIg02orC7Tn3OW5BKVmdsocx3xyrWL8RmSs1WnrF6m7vd9u0OwC_LtWDeQU-ycRYtR1o1g5h_90QuY6TqJQDTCuIjWEH2oH4ywpXvR6KjCmlIOXYcLBXMFcio9bjmbgMZJBrFgHZF9dEaAw=="
-          frameborder="0"
-          scrolling="auto"
-          allowfullscreen
-          style="display:block;margin-left:auto;margin-right:auto;max-width:100%;border-radius:12px;">
-        </iframe>
+        <form id="betaForm" class="text-left space-y-4" novalidate>
+          <label class="block">
+            <span class="text-sm text-slate-300">Email <span class="text-red-400">*</span></span>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              autocomplete="email"
+              required
+              placeholder="you@example.com"
+              class="mt-2 w-full rounded-lg bg-black border border-slate-700 px-4 py-3 text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-primary/60 focus:border-brand-primary"
+            />
+          </label>
+
+          <button
+            type="button"
+            id="toggleNote"
+            class="text-sm text-slate-300 hover:text-brand-text underline underline-offset-4"
+            aria-expanded="false"
+          >
+            Add a short note (optional)
+          </button>
+
+          <div id="noteWrap" class="hidden">
+            <label class="block">
+              <span class="text-sm text-slate-300">Note</span>
+              <textarea
+                id="note"
+                name="note"
+                rows="3"
+                placeholder="Anything you want me to know (device, experience level, what you want to use it for)…"
+                class="mt-2 w-full rounded-lg bg-black border border-slate-700 px-4 py-3 text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-primary/60 focus:border-brand-primary resize-none"
+              ></textarea>
+            </label>
+          </div>
+
+          <div class="flex items-center gap-3 pt-2">
+            <button
+              id="submitBtn"
+              type="submit"
+              class="inline-flex justify-center items-center bg-brand-primary text-black font-semibold px-6 py-3 rounded-full shadow-xl hover:bg-brand-secondary text-sm disabled:opacity-60 disabled:cursor-not-allowed"
+            >
+              Request access
+            </button>
+
+            <span id="spinner" class="hidden text-sm text-slate-400">Submitting…</span>
+          </div>
+
+          <div id="msg" class="hidden mt-4 rounded-lg border px-4 py-3 text-sm"></div>
+
+          <p class="text-xs text-slate-500 pt-2">
+            You’ll be added to the beta list. I’ll reach out personally with next steps.
+          </p>
+        </form>
 
       </div>
     </section>
@@ -176,6 +214,122 @@
       document.querySelectorAll('.parallax-layer').forEach(el => {
         el.style.transform = `translateY(${window.scrollY * 0.05}px)`;
       });
+    });
+
+    // -----------------------------
+    // Supabase (REST) Beta Signup
+    // -----------------------------
+    const SUPABASE_URL = "https://gnbnicrxlioamzcxqjqk.supabase.co"; // <- your project URL
+    const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_lmgd2J37R2xSg2HeC5Yzhw_R_AHXbIF"; // <- paste publishable key
+
+    const form = document.getElementById("betaForm");
+    const emailEl = document.getElementById("email");
+    const noteEl = document.getElementById("note");
+    const msgEl = document.getElementById("msg");
+    const submitBtn = document.getElementById("submitBtn");
+    const spinner = document.getElementById("spinner");
+
+    const toggleNote = document.getElementById("toggleNote");
+    const noteWrap = document.getElementById("noteWrap");
+
+    function showMessage(kind, text) {
+      msgEl.classList.remove("hidden");
+      msgEl.className = "mt-4 rounded-lg border px-4 py-3 text-sm"; // reset
+      if (kind === "success") {
+        msgEl.classList.add("border-green-600/40", "bg-green-500/10", "text-green-200");
+      } else if (kind === "warning") {
+        msgEl.classList.add("border-yellow-600/40", "bg-yellow-500/10", "text-yellow-200");
+      } else {
+        msgEl.classList.add("border-red-600/40", "bg-red-500/10", "text-red-200");
+      }
+      msgEl.textContent = text;
+    }
+
+    function setLoading(isLoading) {
+      submitBtn.disabled = isLoading;
+      spinner.classList.toggle("hidden", !isLoading);
+    }
+
+    toggleNote.addEventListener("click", () => {
+      const isOpen = !noteWrap.classList.contains("hidden");
+      noteWrap.classList.toggle("hidden", isOpen);
+      toggleNote.setAttribute("aria-expanded", String(!isOpen));
+      toggleNote.textContent = !isOpen ? "Hide note" : "Add a short note (optional)";
+      if (!isOpen) setTimeout(() => noteEl.focus(), 50);
+    });
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      msgEl.classList.add("hidden");
+
+      const email = (emailEl.value || "").trim().toLowerCase();
+      const note = (noteEl.value || "").trim();
+
+      // Basic validation
+      if (!email) {
+        showMessage("error", "Please enter your email.");
+        emailEl.focus();
+        return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showMessage("error", "That email doesn’t look valid. Please check it.");
+        emailEl.focus();
+        return;
+      }
+
+      setLoading(true);
+
+      try {
+        const payload = {
+          email,
+          note: note || null,
+          source: "zodis.app",
+          status: "pending"
+        };
+
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/beta_requests`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "apikey": SUPABASE_PUBLISHABLE_KEY,
+            "Authorization": `Bearer ${SUPABASE_PUBLISHABLE_KEY}`,
+            "Prefer": "return=minimal"
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
+          showMessage("success", "Thanks — you’re on the list. I’ll reach out personally when your beta slot is ready.");
+          form.reset();
+          noteWrap.classList.add("hidden");
+          toggleNote.setAttribute("aria-expanded", "false");
+          toggleNote.textContent = "Add a short note (optional)";
+          return;
+        }
+
+        // If you added the unique index, duplicate emails typically surface as a 409 or a Postgres error payload
+        let errText = "";
+        try {
+          const j = await res.json();
+          errText = (j && (j.message || j.details || j.hint || j.error)) ? String(j.message || j.details || j.hint || j.error) : "";
+        } catch (_) {}
+
+        // Friendly duplicate handling (best-effort across different error shapes)
+        const lower = (errText || "").toLowerCase();
+        if (res.status === 409 || lower.includes("duplicate") || lower.includes("unique") || lower.includes("already")) {
+          showMessage("warning", "You’re already on the list with that email. If you want to update your note, message me and I’ll sort it.");
+          return;
+        }
+
+        showMessage("error", "Something went wrong submitting your request. Please try again in a moment.");
+        console.error("Beta submit failed:", res.status, errText);
+
+      } catch (err) {
+        console.error(err);
+        showMessage("error", "Network issue while submitting. Please check your connection and try again.");
+      } finally {
+        setLoading(false);
+      }
     });
   </script>
 
