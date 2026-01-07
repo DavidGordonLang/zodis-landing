@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Žodis – Setup</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+
+  <style>
+    body {
+      background: #000;
+      color: #e5e7eb;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+    a {
+      color: #25C26E;
+      text-decoration: none;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <div>
+    <p>Detecting your device…</p>
+    <p style="margin-top:12px;font-size:14px;color:#9ca3af;">
+      If nothing happens, choose your platform:
+      <br />
+      <a href="/setup/ios/">iPhone / iPad</a> ·
+      <a href="/setup/android/">Android</a>
+    </p>
+  </div>
+
+  <script>
+    const ua = navigator.userAgent || navigator.vendor || window.opera;
+
+    // iOS detection
+    if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
+      window.location.replace("/setup/ios/");
+    }
+    // Android detection
+    else if (/android/i.test(ua)) {
+      window.location.replace("/setup/android/");
+    }
+    // Desktop or unknown
+    else {
+      // Stay on this page and show manual links
+    }
+  </script>
+
+</body>
+</html>
