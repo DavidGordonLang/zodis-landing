@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Žodis – User Guide</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Žodis User Guide — a practical guide to learning Lithuanian the way you actually use it." />
+  <meta name="robots" content="noindex,nofollow" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              primary: '#25C26E',
+              secondary: '#1FAF63',
+              text: '#4ADE80',
+              accent: '#21C985'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @keyframes pulse-slow {
+      0%, 100% { opacity: 0.35; }
+      50% { opacity: 0.5; }
+    }
+    .animate-pulse-slow { animation: pulse-slow 6s ease-in-out infinite; }
+    .hide-scrollbar::-webkit-scrollbar { width: 0; height: 0; }
+    .hide-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+
+    /* -----------------------------
+       Background Logo Parallax Layer
+       ----------------------------- */
+    .bg-logo-wrap {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    /* Huge logo, mild blur, low opacity */
+    .bg-logo {
+      position: absolute;
+      left: 50%;
+      top: 60vh;
+      width: min(2400px, 160vw);
+      height: auto;
+      transform: translate(-50%, -50%);
+      opacity: 0.26;
+      filter: blur(10px);
+      will-change: transform;
+    }
+
+    /* Subtle green glow behind it */
+    .bg-logo-glow {
+      position: absolute;
+      left: 50%;
+      top: 60vh;
+      width: min(2800px, 185vw);
+      height: min(2800px, 185vw);
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle at center, rgba(37,194,110,0.26), transparent 62%);
+      filter: blur(48px);
+      opacity: 0.55;
+      will-change: transform;
+    }
+
+    /* Ensure content is above the background */
+    .site-layer {
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Better reading line-length */
+    .prose-wrap {
+      max-width: 860px;
+    }
+
+    /* Section spacing */
+    .section {
+      border-top: 1px solid rgba(30, 41, 59, 0.8); /* slate-800 */
+      padding-top: 22px;
+      margin-top: 22px;
+    }
+  </style>
+</head>
+
+<body class="bg-black text-slate-50 antialiased">
+
+  <!-- Background Logo (fixed + parallax via JS) -->
+  <div class="bg-logo-wrap" aria-hidden="true">
+    <div class="bg-logo-glow" id="bgLogoGlow"></div>
+    <img
+      src="/public/bg-logo.png"
+      alt=""
+      class="bg-logo"
+      id="bgLogo"
+    />
+  </div>
+
+  <div class="site-layer">
+
+    <!-- HEADER -->
+    <header class="sticky top-0 z-50 border-b border-slate-800/80 bg-black/55 backdrop-blur-md">
+      <div class="max-w-6xl mx-auto px-4 py-2 flex justify-between items-center">
+        <!-- Brand -->
+        <a href="/" class="flex items-center gap-3">
+          <div class="relative w-12 h-12 flex items-center justify-center shrink-0">
+            <img
+              src="/public/bg-logo.png"
+              alt="Žodis logo"
+              class="w-12 h-12 object-contain"
+            />
+            <div class="absolute inset-0 bg-brand-primary/30 blur-lg -z-10 rounded-full"></div>
+          </div>
+
+          <span class="font-semibold text-xl leading-none -translate-y-[1px]">
+            Žodis
+          </span>
+        </a>
+
+        <nav class="hidden sm:flex items-center gap-6 text-sm text-slate-300">
+          <a href="/" class="hover:text-brand-text">Home</a>
+          <a href="/#beta" class="hover:text-brand-text">Beta Access</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="px-6 py-12">
+      <div class="mx-auto prose-wrap">
+
+        <!-- Title -->
+        <div class="text-center">
+          <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight">
+            Žodis <span class="text-brand-primary">User Guide</span>
+          </h1>
+          <p class="mt-4 text-slate-300 text-sm sm:text-base max-w-2xl mx-auto">
+            A practical guide to learning Lithuanian the way you actually use it
+          </p>
+
+          <div class="mt-7 flex justify-center">
+            <a href="/#beta"
+               class="inline-flex items-center justify-center bg-brand-primary text-black font-semibold px-6 py-3 rounded-full shadow-xl hover:bg-brand-secondary text-sm">
+              Request Beta Access
+            </a>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <section class="section text-slate-200">
+          <h2 class="text-xl font-semibold text-slate-50">What Žodis is, and what it is not</h2>
+
+          <div class="mt-4 space-y-2 text-slate-300">
+            <p>Žodis is not a course.</p>
+            <p>It does not teach Lithuanian in a fixed order.</p>
+            <p>It does not expect you to memorise lists before you are allowed to speak.</p>
+          </div>
+
+          <p class="mt-5 text-slate-300">
+            Žodis is a personal language library.
+          </p>
+
+          <div class="mt-4 space-y-2 text-slate-300">
+            <p>You collect words and phrases that matter to you.</p>
+            <p>Single words matter just as much as full phrases.</p>
+            <p>You add them when they matter, when you need them, think of them, or are simply curious.</p>
+          </div>
+
+          <p class="mt-5 text-slate-300">
+            This mirrors real life. You rarely need lesson seven grammar. You need this word, right now.
+          </p>
+        </section>
+
+        <section class="section">
+          <h2 class="text-xl font-semibold text-slate-50">The core idea</h2>
+
+          <p class="mt-4 text-slate-300">
+            You learn faster when language connects to real situations.
+          </p>
+
+          <p class="mt-4 text-slate-300">
+            Žodis is built around three principles:
+          </p>
+
+          <ul class="mt-4 list-disc pl-6 space-y-2 text-slate-300">
+            <li>You learn what you need, when you need it</li>
+            <li>Meaning comes from context, not repetition</li>
+            <li>You stay in control of your data and your progress</li>
+          </ul>
+
+          <p class="mt-4 text-slate-300">
+            Everything in the app supports these ideas.
+          </p>
+        </section>
+
+        <section class="section">
+          <h2 class="text-xl font-semibold text-slate-50">Adding words and phrases</h2>
+
+          <p class="mt-4 text-slate-300">You can add entries in two ways:</p>
+
+          <ul class="mt-4 list-disc pl-6 space-y-2 text-slate-300">
+            <li>From the Home screen using translation</li>
+            <li>Directly in the Library using Add Entry</li>
+          </ul>
+
+          <p class="mt-4 text-slate-300">Each entry can include:</p>
+
+          <ul class="mt-4 list-disc pl-6 space-y-2 text-slate-300">
+            <li>English</li>
+            <li>Lithuanian</li>
+            <li>Phonetic spelling</li>
+            <li>Category</li>
+            <li>Notes</li>
+            <li>RAG status</li>
+          </ul>
+
+          <p class="mt-4 text-slate-300">
+            You are not required to fill everything in. Start simple. You can always expand later.
+          </p>
+        </section>
+
+        <section class="section">
+          <h2 class="text-xl font-semibold text-slate-50">Translator input flexibility</h2>
+
+          <p class="mt-4 text-slate-300">
+            Žodis is flexible about how you enter language.
+          </p>
+
+          <p class="mt-4 text-slate-300">
+            You can enter English to receive a Lithuanian translation, but you can also enter Lithuanian directly.
+            The app will still process the phrase correctly and store it in your library.
+          </p>
+
+          <p class="mt-4 text-slate-300">
+            This is useful if you already know some Lithuanian and want to check meaning, phrasing, or form.
+            It is also useful if you hear something spoken and want to capture it exactly as it was said.
+          </p>
+
+          <p class="mt-4 text-slate-300">
+            You can even hand the app to a Lithuanian speaker and ask them to type the phrase directly.
+            Žodis will store it cleanly, ready for audio playback, notes, and organisation.
+          </p>
+
+          <p class="mt-4 text-slate-300">
+            This makes Žodis more than a one way translator. It becomes a tool for collecting authentic language
+            from real people and real situations.
+          </p>
+        </section>
+
+        <section class="section">
+          <h2 class="text-xl font-semibold text-slate-50">Audio playback</h2>
+
+          <p class="mt-4 text-slate-300">
+            Audio is central to how Žodis works.
+          </p>
+
+          <ul class="mt-4 list-disc pl-6 space-y-2 text-slate-300">
+            <li>Tap a phrase to hear it at normal speed</li>
+            <li>Long press to hear it slowly</li>
+          </ul>
+
+          <p class="mt-4 text-slate-300">
+            This lets you hear natural pronunciation first, then slow it down when needed.
+          </p>
+
+          <p class="mt-4 text-slate-300">
+            Use audio often. Even passive listening builds familiarity.
+          </p>
+        </section>
+
+        <section class="section">
+          <h2 class="text-xl font-semibold text-slate-50">Notes are where learning deepens</h2>
+
+          <p class="mt-4 text-slate-300">
+            The Notes field is one of the most important parts of Žodis.
+          </p>
+
+          <p class="mt-4 text-slate-300">Use Notes to capture things like:</p>
+
+          <ul class="mt-4 list-disc pl-6 space-y-2 text-slate-300">
+            <li>When a phrase sounds natural and when it does not</li>
+            <li>Alternative forms or word order</li>
+            <li>Cultural context</li>
+            <li>Why a translation is the way it is</li>
+          </ul>
+
+          <p class="mt-4 text-slate-300">
+            Over time, your Notes become a personalised explanation layer that no generic course can give you.
+          </p>
+        </section>
+
+        <section class="section">
+          <h2 class="text-xl font-semibold text-slate-50">Organising with RAG</h2>
+
+          <p class="mt-4 text-slate-300">RAG is a simple visual system:</p>
+
+          <ul class="mt-4 list-disc pl-6 space-y-2 text-slate-300">
+            <li>🔴 Red means not comfortable yet</li>
+            <li>🟠 Amber means partly familiar</li>
+            <li>🟢 Green means comfortable</li>
+          </ul>
+
+          <p class="mt-4 text-slate-300">You can change RAG in two ways:</p>
+
+          <ul class="mt-4 list-disc pl-6 space-y-2 text-slate-300">
+            <li>Edit the entry and choose the RAG value</li>
+            <li>Tap the RAG icon directly in the Library to cycle it</li>
+          </ul>
+
+          <p class="mt-4 text-slate-300">
+            RAG is not a test score. It is a quick self check that helps you decide what to revisit.
+          </p>
+        </section>
+
+        <section class="section">
+          <h2 class="text-xl font-semibold text-slate-50">The Library</h2>
+
+          <p class="mt-4 text-slate-300">
+            Your Library is the heart of Žodis.
+          </p>
+
+          <p class="mt-4 text-slate-300">
+            It contains everything you have added, across all devices once synced.
+          </p>
+
+          <p class="mt-4 text-slate-300">You can:</p>
+
+          <ul class="mt-4 list-disc pl-6 space-y-2 text-slate-300">
+            <li>Search instantly</li>
+            <li>Sort by RAG or date</li>
+            <li>Edit entries at any time</li>
+            <li>Delete entries you no longer want</li>
+          </ul>
+
+          <p class="mt-4 text-slate-300">
+            Deleted entries are handled safely so they do not accidentally reappear after syncing.
+          </p>
+        </section>
+
+        <section class="section">
+          <h2 class="text-xl font-semibold text-slate-50">Signing in and why it exists</h2>
+
+          <p class="mt-4 text-slate-300">
+            Signing in enables backup and multi device sync. It does not lock features or change how the app works.
+          </p>
+
+          <p class="mt-4 text-slate-300">You can sign in with:</p>
+
+          <ul class="mt-4 list-disc pl-6 space-y-2 text-slate-300">
+            <li>Google</li>
+            <li>Email</li>
+          </ul>
+
+          <div class="mt-5 rounded-xl border border-yellow-600/35 bg-yellow-500/10 p-4 text-slate-200">
+            <p class="font-semibold text-yellow-200">Important note for beta users</p>
+            <p class="mt-2 text-slate-300">
+              You must sign in using the same email address you used to request beta access.
+            </p>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 class="text-xl font-semibold text-slate-50">Manual sync, by design</h2>
+
+          <p class="mt-4 text-slate-300">
+            Žodis does not sync automatically. This is intentional.
+          </p>
+
+          <p class="mt-4 text-slate-300">You have three sync actions:</p>
+
+          <ul class="mt-4 list-disc pl-6 space-y-2 text-slate-300">
+            <li><span class="text-slate-50 font-semibold">Upload</span> — Replaces the cloud copy with what is on this device.</li>
+            <li><span class="text-slate-50 font-semibold">Download</span> — Replaces what is on this device with what is in the cloud.</li>
+            <li><span class="text-slate-50 font-semibold">Merge</span> — Safely combines both libraries. This is usually the best choice.</li>
+          </ul>
+
+          <p class="mt-4 text-slate-300">
+            Nothing happens silently. You always choose.
+          </p>
+        </section>
+
+        <section class="section">
+          <h2 class="text-xl font-semibold text-slate-50">Why manual sync matters</h2>
+
+          <p class="mt-4 text-slate-300">
+            Automatic sync can overwrite data without warning. That is especially dangerous while learning and editing language.
+          </p>
+
+          <p class="mt-4 text-slate-300">
+            Žodis prioritises trust and clarity over automation.
+          </p>
+
+          <p class="mt-4 text-slate-300">
+            If you are unsure, use Merge.
+          </p>
+        </section>
+
+        <section class="section">
+          <h2 class="text-xl font-semibold text-slate-50">Starter content</h2>
+
+          <p class="mt-4 text-slate-300">
+            Žodis includes optional starter packs.
+          </p>
+
+          <ul class="mt-4 list-disc pl-6 space-y-2 text-slate-300">
+            <li>Installing a starter pack multiple times will not create duplicates</li>
+            <li>If you edit a starter entry, it becomes fully yours</li>
+            <li>If you delete a starter entry, it stays deleted</li>
+          </ul>
+
+          <p class="mt-4 text-slate-300">
+            Starter content exists to help you begin, not to control your library.
+          </p>
+        </section>
+
+        <section class="section">
+          <h2 class="text-xl font-semibold text-slate-50">Deleting entries</h2>
+
+          <p class="mt-4 text-slate-300">
+            When you delete an entry, it is removed from your active library.
+          </p>
+
+          <p class="mt-4 text-slate-300">
+            Behind the scenes, Žodis tracks deletions so they do not return after syncing or reinstalling starter content.
+          </p>
+
+          <p class="mt-4 text-slate-300">
+            You do not need to manage this. It just works.
+          </p>
+        </section>
+
+        <section class="section">
+          <h2 class="text-xl font-semibold text-slate-50">Using Žodis effectively</h2>
+
+          <p class="mt-4 text-slate-300">A few practical tips:</p>
+
+          <ul class="mt-4 list-disc pl-6 space-y-2 text-slate-300">
+            <li>Add phrases immediately after real conversations</li>
+            <li>Use Notes early, even briefly</li>
+            <li>Do not wait for perfection before adding something</li>
+            <li>Let your library grow unevenly. That is normal</li>
+          </ul>
+
+          <p class="mt-4 text-slate-300">
+            Your library will reflect your life. That is the point.
+          </p>
+        </section>
+
+        <section class="section">
+          <h2 class="text-xl font-semibold text-slate-50">Learning philosophy</h2>
+
+          <p class="mt-4 text-slate-300">
+            Žodis does not replace grammar study if you enjoy it. It does not replace conversation practice.
+          </p>
+
+          <p class="mt-4 text-slate-300">
+            What it does is give you better tools for both.
+          </p>
+
+          <p class="mt-4 text-slate-300">
+            You walk into conversations with language that already belongs to you.
+          </p>
+        </section>
+
+        <section class="section">
+          <h2 class="text-xl font-semibold text-slate-50">Getting more help</h2>
+
+          <p class="mt-4 text-slate-300">
+            Žodis includes a short in app guide to get you started.
+          </p>
+
+          <p class="mt-4 text-slate-300">
+            A full, detailed guide is available on the website and is updated alongside the app.
+          </p>
+
+          <p class="mt-4 text-slate-300">
+            You can reopen the User Guide anytime from Settings.
+          </p>
+        </section>
+
+        <section class="section">
+          <h2 class="text-xl font-semibold text-slate-50">Final thought</h2>
+
+          <p class="mt-4 text-slate-300">
+            Žodis is not about finishing a language.
+          </p>
+
+          <p class="mt-4 text-slate-300">
+            It is about building something personal, useful, and real.
+          </p>
+
+          <p class="mt-4 text-slate-300">
+            Your library is yours. Grow it in a way that matches your life.
+          </p>
+        </section>
+
+        <div class="mt-10 text-center text-xs text-slate-500">
+          <p>© 2025 Žodis — Created by David Lang</p>
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <script>
+    // ---------------------------------------
+    // Background Logo Parallax (slow / far away)
+    // ---------------------------------------
+    const bgLogo = document.getElementById("bgLogo");
+    const bgLogoGlow = document.getElementById("bgLogoGlow");
+
+    // Smaller = slower (feels further away)
+    const BG_PARALLAX_SPEED = 0.015;
+
+    function updateBgParallax() {
+      const y = window.scrollY * BG_PARALLAX_SPEED;
+
+      // Keep consistent with landing page behaviour
+      const baseOffset = 0;
+
+      if (bgLogo) {
+        bgLogo.style.transform = `translate(-50%, calc(-50% + ${baseOffset + y}px))`;
+      }
+      if (bgLogoGlow) {
+        bgLogoGlow.style.transform = `translate(-50%, calc(-50% + ${baseOffset + y}px))`;
+      }
+    }
+
+    window.addEventListener("scroll", updateBgParallax, { passive: true });
+    updateBgParallax();
+  </script>
+
+</body>
+</html>
