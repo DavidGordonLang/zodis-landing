@@ -292,8 +292,8 @@
         <h2 class="text-2xl font-semibold mb-3">Request Beta Access</h2>
 
         <p class="text-slate-400 text-sm mb-6 max-w-2xl mx-auto">
-          Join the list and I’ll onboard you personally. If you add a short note (device + what you want to use Žodis for),
-          I can prioritise the most useful feedback first.
+          Join the list and I’ll onboard you personally.
+          To help me keep the beta small and track what’s working, please tell me where you heard about Žodis.
         </p>
 
         <div class="bg-black/60 p-6 rounded-xl border border-slate-800 max-w-xl mx-auto">
@@ -312,27 +312,21 @@
               />
             </label>
 
-            <button
-              type="button"
-              id="toggleNote"
-              class="text-sm text-slate-300 hover:text-brand-text underline underline-offset-4"
-              aria-expanded="false"
-            >
-              Add a short note (optional)
-            </button>
-
-            <div id="noteWrap" class="hidden">
-              <label class="block">
-                <span class="text-sm text-slate-300">Note</span>
-                <textarea
-                  id="note"
-                  name="note"
-                  rows="3"
-                  placeholder="Device (Android/iOS), experience level, and what you’ll use Žodis for…"
-                  class="mt-2 w-full rounded-lg bg-black border border-slate-700 px-4 py-3 text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-primary/60 focus:border-brand-primary resize-none"
-                ></textarea>
-              </label>
-            </div>
+            <!-- Mandatory note (source) -->
+            <label class="block">
+              <span class="text-sm text-slate-300">Where did you hear about Žodis? <span class="text-red-400">*</span></span>
+              <textarea
+                id="note"
+                name="note"
+                rows="3"
+                required
+                placeholder="e.g. Instagram (who?), a friend, Reddit, Google search, WhatsApp group…"
+                class="mt-2 w-full rounded-lg bg-black border border-slate-700 px-4 py-3 text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-primary/60 focus:border-brand-primary resize-none"
+              ></textarea>
+              <p class="mt-2 text-xs text-slate-500">
+                This helps me understand what’s working and keep the beta personal.
+              </p>
+            </label>
 
             <div class="flex items-center gap-3 pt-2">
               <button
@@ -415,9 +409,6 @@
     const submitBtn = document.getElementById("submitBtn");
     const spinner = document.getElementById("spinner");
 
-    const toggleNote = document.getElementById("toggleNote");
-    const noteWrap = document.getElementById("noteWrap");
-
     function showMessage(kind, text) {
       msgEl.classList.remove("hidden");
       msgEl.className = "mt-4 rounded-lg border px-4 py-3 text-sm";
@@ -436,14 +427,6 @@
       spinner.classList.toggle("hidden", !isLoading);
     }
 
-    toggleNote.addEventListener("click", () => {
-      const isOpen = !noteWrap.classList.contains("hidden");
-      noteWrap.classList.toggle("hidden", isOpen);
-      toggleNote.setAttribute("aria-expanded", String(!isOpen));
-      toggleNote.textContent = !isOpen ? "Hide note" : "Add a short note (optional)";
-      if (!isOpen) setTimeout(() => noteEl.focus(), 50);
-    });
-
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       msgEl.classList.add("hidden");
@@ -451,6 +434,7 @@
       const email = (emailEl.value || "").trim().toLowerCase();
       const note = (noteEl.value || "").trim();
 
+      // Email validation
       if (!email) {
         showMessage("error", "Please enter your email.");
         emailEl.focus();
@@ -462,12 +446,19 @@
         return;
       }
 
+      // Note (source) validation — now mandatory
+      if (!note) {
+        showMessage("error", "Please tell me where you heard about Žodis.");
+        noteEl.focus();
+        return;
+      }
+
       setLoading(true);
 
       try {
         const payload = {
           email,
-          note: note || null,
+          note,                 // REQUIRED now (no nulls)
           source: "zodis.app",
           status: "pending"
         };
@@ -486,21 +477,20 @@
         if (res.ok) {
           showMessage("success", "Thanks — you’re on the list. I’ll reach out personally when your beta slot is ready.");
           form.reset();
-          noteWrap.classList.add("hidden");
-          toggleNote.setAttribute("aria-expanded", "false");
-          toggleNote.textContent = "Add a short note (optional)";
           return;
         }
 
         let errText = "";
         try {
           const j = await res.json();
-          errText = (j && (j.message || j.details || j.hint || j.error)) ? String(j.message || j.details || j.hint || j.error) : "";
+          errText = (j && (j.message || j.details || j.hint || j.error))
+            ? String(j.message || j.details || j.hint || j.error)
+            : "";
         } catch (_) {}
 
         const lower = (errText || "").toLowerCase();
         if (res.status === 409 || lower.includes("duplicate") || lower.includes("unique") || lower.includes("already")) {
-          showMessage("warning", "You’re already on the list with that email. If you want to update your note, message me and I’ll sort it.");
+          showMessage("warning", "You’re already on the list with that email. If you want to update where you heard about Žodis, message me and I’ll sort it.");
           return;
         }
 
