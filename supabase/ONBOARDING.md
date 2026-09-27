@@ -107,3 +107,7 @@ Waitlist subject: `Your Žodis Beta waitlist place`
 
 From: `David from Žodis <hello@zodis.app>`; Reply-To:
 `davidgordonlang@gmail.com`. These are operational messages only.
+
+## Controlled preview testing
+
+During pre-cutover validation only, the Edge Function also accepts the exact Vercel branch-preview origin `https://zodis-landing-git-codex-beta3-o-f88ddc-davids-projects-25f8617a.vercel.app`, and Turnstile hostname validation accepts the matching host. Remove this preview allowance before final production activation.
