@@ -128,12 +128,6 @@ Deno.serve(async (req) => {
   if (req.method !== 'POST') return json(req, { error: 'Method not allowed' }, 405);
   try {
     if (req.headers.get('x-worker-secret') === Deno.env.get('BETA_WORKER_SECRET') && Deno.env.get('BETA_WORKER_SECRET')) {
-      const workerPayload = await req.json().catch(() => ({})) as Record<string, unknown>;
-      if (workerPayload.raceTest === true) {
-        const raceEmail = String(workerPayload.email || '');
-        const data = await rpc('beta_race_probe_http', { p_email: raceEmail });
-        return json(req, { ok: true, race: data?.[0] || null });
-      }
       for (let i = 0; i < 12; i++) {
         const [email, discord] = await Promise.all([deliver('email'), deliver('discord')]);
         if (!email && !discord) break;
