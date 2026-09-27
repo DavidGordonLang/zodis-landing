@@ -104,6 +104,11 @@ async function deliver(channel: 'email' | 'discord', requestId: number | null = 
       if (!res.ok || !result.id) throw new Error(`Resend HTTP ${res.status}: ${String(result.message || 'no message ID').slice(0,160)}`);
       providerId = result.id;
     } else {
+      // Controlled live retry-path probe. This exact reserved address is never
+      // user-supplied; first attempt fails before any webhook request is made.
+      if (job.email === 'zodis-retry-discord@example.invalid' && job.attempts === 1) {
+        throw new Error('Controlled retry test: synthetic first-attempt Discord failure');
+      }
       const content = `Žodis Beta signup · ${job.status}\nEmail: ${job.email}\nSource: ${job.source}\nHow found: ${job.note}\nExternal testers: ${job.tester_count}/100`;
       const res = await fetch(env('DISCORD_BETA_WEBHOOK_URL'), {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
