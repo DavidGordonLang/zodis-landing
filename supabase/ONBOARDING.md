@@ -7,8 +7,11 @@ checkpoint. No historical request is replayed or admitted.
 ## Components
 
 - `migrations/20260927142652_beta3_onboarding_automation.sql` extends
-  `beta_requests`, removes direct anonymous INSERT, and adds three
-  service-role-only RPCs. An advisory transaction lock serialises the cap
+  `beta_requests` and adds three service-role-only RPCs while deliberately
+  leaving the current landing-page INSERT policy intact for controlled testing.
+- `migrations/20260927183000_beta3_onboarding_cutover.sql` is the explicit
+  production switch: it removes the legacy direct anonymous INSERT path only
+  after final approval. An advisory transaction lock serialises the cap
   decision. The two existing owner addresses are excluded from the external
   tester count. Existing requests and allowlist rows return the neutral
   `received` result without a new email or status change.
@@ -51,10 +54,12 @@ checkpoint. No historical request is replayed or admitted.
    Vault at run time. Monitor `beta_requests` rows in `failed` or
    `sending` state and alert on four exhausted attempts. The worker can be
    invoked manually with the same secret after resolving a provider outage.
-6. At the approved cutover: deploy the function, apply the admission migration,
-   switch the landing PR, apply the retry migration, then verify the live form.
-   The old landing bundle's direct
-   insert will fail between migration and deployment; keep this window short.
+6. Before cutover, it is safe to deploy the function and apply the core
+   onboarding migration for controlled validation because the current direct
+   landing INSERT remains available.
+7. At the approved cutover: merge/deploy the landing PR, apply
+   `20260927183000_beta3_onboarding_cutover.sql`, apply the retry migration,
+   then verify the live form. This sequencing avoids a deliberate signup outage.
 
 ## Validation gate
 
