@@ -36,15 +36,18 @@ checkpoint. No historical request is replayed or admitted.
 2. Verify the Žodis signup Discord channel and configure its webhook.
 3. Configure Supabase Edge Function secrets `RESEND_API_KEY`,
    `DISCORD_BETA_WEBHOOK_URL`, and `BETA_WORKER_SECRET`. The runtime already
-   supplies `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY`. Never put values in
+   supplies `SUPABASE_URL` and `SUPABASE_SECRET_KEYS`. Never put values in
    this repository or a PR.
-4. Set a scheduled worker call (for example every five minutes) to the same
-   function with `x-worker-secret`. Keep that value in Supabase Vault, not in
-   cron SQL or a public URL. Monitor `beta_requests` rows in `failed` or
+4. Store the same `BETA_WORKER_SECRET` value encrypted in Vault as
+   `beta_worker_secret`. After the function is deployed, apply
+   `20260927162547_beta3_retry_worker.sql` to enable `pg_cron` and `pg_net`
+   and call the worker every five minutes. The cron job reads its header from
+   Vault at run time. Monitor `beta_requests` rows in `failed` or
    `sending` state and alert on four exhausted attempts. The worker can be
    invoked manually with the same secret after resolving a provider outage.
-5. At the approved cutover: deploy the function, apply the migration, switch
-   the landing PR, then verify the live form. The old landing bundle's direct
+5. At the approved cutover: deploy the function, apply the admission migration,
+   switch the landing PR, apply the retry migration, then verify the live form.
+   The old landing bundle's direct
    insert will fail between migration and deployment; keep this window short.
 
 ## Validation gate
