@@ -88,12 +88,26 @@ Welcome subject: `You're in the Žodis Beta`
 
 > Hi,
 >
-> You're in the Žodis Beta. Open the app at https://learning-lithuanian.vercel.app and sign in with the same email address you used to request access.
+> Thanks for joining the Žodis Beta.
+>
+> You can open the app at https://learning-lithuanian.vercel.app and sign in with the same email address you used to request access.
+>
+> I suggest adding it to your phone so you can get the full app experience, rather than using it through the browser. This can be done on both Android and iPhone.
 >
 > To add it to your phone: https://www.zodis.app/setup/
-> A quick guide: https://www.zodis.app/userguide/
+> A quick guide for how to use Žodis: https://www.zodis.app/userguide/
 >
-> This is a small beta, and I'd love to hear what works or feels confusing. Just reply to this email. I'm learning Lithuanian too, so honest feedback really helps.
+> This is a small beta, and I really do want to hear what works or feels confusing.
+>
+> Just reply to this email.
+>
+> I built Žodis as something to help me learn. Starting as flashcards on Trello and then a basic app with a fixed library that I could search. As soon as I tried it when I was visiting Lithuania and needed a carrier bag in a shop, I realised I needed a translator that would take what I wanted to say and make it sound natural in Lithuanian.
+>
+> Then came structured lessons that have been reviewed by native Lithuanian speakers and scenarios that let you build a bank of relevant phrases that you can pull up in various situations.
+>
+> All things to help you navigate and get comfortable speaking the language.
+>
+> I'm still learning Lithuanian too, so honest feedback really helps.
 >
 > David
 
