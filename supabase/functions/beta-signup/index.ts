@@ -1,4 +1,4 @@
-const allowedOrigins = new Set(['https://www.zodis.app', 'https://zodis.app']);
+const allowedOrigins = new Set(['https://www.zodis.app', 'https://zodis.app', 'https://zodis-landing-git-codex-beta3-o-f88ddc-davids-projects-25f8617a.vercel.app']);
 const headersFor = (req: Request) => {
   const requestOrigin = req.headers.get('origin');
   const responseOrigin = requestOrigin && allowedOrigins.has(requestOrigin)
@@ -70,7 +70,7 @@ async function verifyTurnstile(token: string) {
     const result = await res.json() as TurnstileResult;
     if (!res.ok) throw new Error(`Turnstile HTTP ${res.status}`);
     return result.success === true &&
-      (result.hostname === 'zodis.app' || result.hostname === 'www.zodis.app') &&
+      (result.hostname === 'zodis.app' || result.hostname === 'www.zodis.app' || result.hostname === 'zodis-landing-git-codex-beta3-o-f88ddc-davids-projects-25f8617a.vercel.app') &&
       result.action === 'beta-signup';
   } finally {
     clearTimeout(timeoutId);
