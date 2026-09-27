@@ -34,18 +34,24 @@ checkpoint. No historical request is replayed or admitted.
 1. Verify `zodis.app` in Resend with DNS records at the authoritative provider;
    preserve unrelated records and nameservers. Create a send-only key.
 2. Verify the Žodis signup Discord channel and configure its webhook.
-3. Configure Supabase Edge Function secrets `RESEND_API_KEY`,
+3. Create a Cloudflare Turnstile **Managed** widget named `Žodis Beta signup`
+   for both `zodis.app` and `www.zodis.app`. Replace the
+   `__TURNSTILE_SITE_KEY__` placeholder in `index.html` with its public
+   sitekey. Store its private secret only as the Supabase Edge Function secret
+   `TURNSTILE_SECRET_KEY`. The function validates Siteverify success, hostname
+   and the `beta-signup` action before any admission decision.
+4. Configure Supabase Edge Function secrets `RESEND_API_KEY`,
    `DISCORD_BETA_WEBHOOK_URL`, and `BETA_WORKER_SECRET`. The runtime already
    supplies `SUPABASE_URL` and `SUPABASE_SECRET_KEYS`. Never put values in
    this repository or a PR.
-4. Store the same `BETA_WORKER_SECRET` value encrypted in Vault as
+5. Store the same `BETA_WORKER_SECRET` value encrypted in Vault as
    `beta_worker_secret`. After the function is deployed, apply
    `20260927162547_beta3_retry_worker.sql` to enable `pg_cron` and `pg_net`
    and call the worker every five minutes. The cron job reads its header from
    Vault at run time. Monitor `beta_requests` rows in `failed` or
    `sending` state and alert on four exhausted attempts. The worker can be
    invoked manually with the same secret after resolving a provider outage.
-5. At the approved cutover: deploy the function, apply the admission migration,
+6. At the approved cutover: deploy the function, apply the admission migration,
    switch the landing PR, apply the retry migration, then verify the live form.
    The old landing bundle's direct
    insert will fail between migration and deployment; keep this window short.
@@ -57,7 +63,10 @@ in a transaction that is rolled back, test: under cap, case-folded duplicate,
 pre-existing allowlist, 100/100 waitlist, two concurrent last-place
 transactions, and no changes to owners. Never seed 99 fake live users.
 
-Test actual Resend and Discord delivery with a controlled alias, check one
+Test Turnstile with the real production widget plus Cloudflare's official
+test credentials where appropriate; verify missing/invalid/replayed tokens are
+rejected before the admission RPC is called. Test actual Resend and Discord
+delivery with a controlled alias, check one
 Resend provider ID and one Discord message, then repeat the request and retry
 worker to verify no second email. Simulate a provider failure, inspect the
 persisted failure and retry to sent. Check suppression. Sign in to the app
