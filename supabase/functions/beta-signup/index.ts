@@ -1,4 +1,4 @@
-const allowedOrigins = new Set(['https://www.zodis.app', 'https://zodis.app', 'https://zodis-landing-git-codex-beta3-o-f88ddc-davids-projects-25f8617a.vercel.app']);
+const allowedOrigins = new Set(['https://www.zodis.app', 'https://zodis.app']);
 const headersFor = (req: Request) => {
   const requestOrigin = req.headers.get('origin');
   const responseOrigin = requestOrigin && allowedOrigins.has(requestOrigin)
@@ -70,7 +70,7 @@ async function verifyTurnstile(token: string) {
     const result = await res.json() as TurnstileResult;
     if (!res.ok) throw new Error(`Turnstile HTTP ${res.status}`);
     return result.success === true &&
-      (result.hostname === 'zodis.app' || result.hostname === 'www.zodis.app' || result.hostname === 'zodis-landing-git-codex-beta3-o-f88ddc-davids-projects-25f8617a.vercel.app') &&
+      (result.hostname === 'zodis.app' || result.hostname === 'www.zodis.app') &&
       result.action === 'beta-signup';
   } finally {
     clearTimeout(timeoutId);
@@ -153,15 +153,9 @@ Deno.serve(async (req) => {
       return json(req, { error: 'Please enter a valid email and a short note.' }, 400);
     if (!await verifyTurnstile(turnstileToken))
       return json(req, { error: 'Please complete the security check and try again.' }, 403);
-    const isControlledPreview =
-      requestOrigin === 'https://zodis-landing-git-codex-beta3-o-f88ddc-davids-projects-25f8617a.vercel.app';
-    const data = isControlledPreview
-      ? await rpc('beta_submit_request_testcap', {
-          p_email: email, p_note: note, p_source: 'zodis.app', p_capacity: 1,
-        })
-      : await rpc('beta_submit_request', {
-          p_email: email, p_note: note, p_source: 'zodis.app',
-        });
+    const data = await rpc('beta_submit_request', {
+      p_email: email, p_note: note, p_source: 'zodis.app',
+    });
     const outcome = data?.[0]?.outcome || 'received';
     const requestId = data?.[0]?.request_id;
     // Delivery is synchronous for a useful immediate result. The durable worker
