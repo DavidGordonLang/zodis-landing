@@ -33,7 +33,7 @@ drop policy if exists "landing page can submit beta requests" on public.beta_req
 revoke insert on public.beta_requests from anon, authenticated;
 
 create or replace function public.beta_submit_request(p_email text, p_note text, p_source text default 'zodis.app')
-returns table (outcome text, tester_count integer)
+returns table (outcome text, tester_count integer, request_id bigint)
 language plpgsql security definer set search_path = ''
 as $$
 declare v_email text := lower(btrim(p_email)); v_count integer; v_id bigint;
@@ -53,7 +53,7 @@ begin
   -- A request or allowlist entry pre-dating activation must not receive a new email.
   if exists (select 1 from public.beta_requests where lower(btrim(email)) = v_email)
      or exists (select 1 from public.beta_allowlist where lower(btrim(email)) = v_email) then
-    return query select 'received'::text, v_count;
+    return query select 'received'::text, v_count, null::bigint;
     return;
   end if;
 
@@ -64,13 +64,13 @@ begin
   if v_count < 100 then
     insert into public.beta_allowlist(email) values (v_email);
     v_count := v_count + 1;
-    return query select 'admitted'::text, v_count;
+    return query select 'admitted'::text, v_count, v_id;
   else
-    return query select 'waitlisted'::text, v_count;
+    return query select 'waitlisted'::text, v_count, v_id;
   end if;
 end $$;
 
-create or replace function public.beta_claim_delivery(p_channel text)
+create or replace function public.beta_claim_delivery(p_channel text, p_request_id bigint default null)
 returns table (request_id bigint, email text, note text, source text, status text,
                tester_count integer, claim_id uuid, attempts integer, decided_at timestamptz)
 language plpgsql security definer set search_path = ''
@@ -80,6 +80,7 @@ begin
   if p_channel not in ('email','discord') then raise exception 'invalid channel'; end if;
   select * into v from public.beta_requests r
    where r.status in ('admitted','waitlisted') and
+   (p_request_id is null or r.id = p_request_id) and
    ((p_channel = 'email' and r.suppressed_at is null and
      (r.email_state = 'pending' or (r.email_state = 'failed' and r.email_attempts < 4
        and r.email_claimed_at < now() - interval '5 minutes')
@@ -126,8 +127,8 @@ begin
 end $$;
 
 revoke all on function public.beta_submit_request(text,text,text) from public,anon,authenticated;
-revoke all on function public.beta_claim_delivery(text) from public,anon,authenticated;
+revoke all on function public.beta_claim_delivery(text,bigint) from public,anon,authenticated;
 revoke all on function public.beta_finish_delivery(bigint,text,uuid,boolean,text,text) from public,anon,authenticated;
 grant execute on function public.beta_submit_request(text,text,text) to service_role;
-grant execute on function public.beta_claim_delivery(text) to service_role;
+grant execute on function public.beta_claim_delivery(text,bigint) to service_role;
 grant execute on function public.beta_finish_delivery(bigint,text,uuid,boolean,text,text) to service_role;
