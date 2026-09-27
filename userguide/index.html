@@ -4,259 +4,167 @@
   <meta charset="utf-8" />
   <title>Žodis – Beta 3 User Guide</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="A practical guide to Žodis Beta 3: setup, lessons, scenarios, pronunciation, progress, Library and sync." />
+  <meta name="description" content="A friendly guide to getting around Žodis Beta 3: lessons, scenarios, pronunciation, Library, progress and setup." />
   <meta name="robots" content="noindex,nofollow" />
   <style>
     :root{
-      --bg:#050907;--surface:#0d1712;--surface2:#111f18;--text:#f2f7f4;--muted:#9fb0a7;
-      --line:rgba(230,245,237,.12);--green:#25cf7b;--green2:#6ee7a5;--soft:#143725;
+      --bg:#050907;--surface:#0d1712;--text:#f2f7f4;--muted:#9fb0a7;--line:rgba(230,245,237,.12);
+      --green:#25cf7b;--green2:#6ee7a5;--soft:#143725;
       --sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
       --display:Georgia,"Times New Roman",serif
     }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{margin:0;background:radial-gradient(circle at 80% 0,rgba(37,207,123,.11),transparent 28rem),var(--bg);color:var(--text);font-family:var(--sans);line-height:1.65}
-    a{color:inherit}
-    .wrap{width:min(920px,calc(100% - 32px));margin:auto}
+    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    body{margin:0;background:radial-gradient(circle at 80% 0,rgba(37,207,123,.11),transparent 28rem),var(--bg);color:var(--text);font-family:var(--sans);line-height:1.62}
+    a{color:inherit}.wrap{width:min(880px,calc(100% - 32px));margin:auto}
     header{position:sticky;top:0;z-index:20;border-bottom:1px solid var(--line);background:rgba(5,9,7,.84);backdrop-filter:blur(16px)}
     .nav{min-height:66px;display:flex;align-items:center;justify-content:space-between;gap:1rem}
-    .brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;font-weight:800}
-    .brand img{width:38px;height:38px;object-fit:contain}
-    .navlinks{display:flex;gap:1rem;font-size:.88rem;color:var(--muted)}
-    .navlinks a{text-decoration:none}.navlinks a:hover{color:var(--text)}
-    main{padding:4rem 0 6rem}
-    .hero{text-align:center;padding:1rem 0 2.6rem}
-    .eyebrow{margin:0 0 .8rem;color:var(--green2);font-size:.76rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
-    h1,h2{font-family:var(--display);font-weight:500;letter-spacing:-.035em}
-    h1{margin:.2rem auto 1rem;font-size:clamp(2.7rem,8vw,5.4rem);line-height:1}
-    h2{margin:0 0 .8rem;font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.08}
-    h3{margin:1.35rem 0 .45rem;font-size:1.02rem}
-    p{margin:.65rem 0;color:var(--muted)}
-    .lede{max-width:720px;margin:0 auto;color:#c6d2cc;font-size:1.08rem}
-    .actions{display:flex;justify-content:center;flex-wrap:wrap;gap:.7rem;margin-top:1.5rem}
+    .brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;font-weight:800}.brand img{width:38px;height:38px;object-fit:contain}
+    .navlinks{display:flex;gap:1rem;font-size:.88rem;color:var(--muted)}.navlinks a{text-decoration:none}.navlinks a:hover{color:var(--text)}
+    main{padding:3.5rem 0 5rem}.hero{text-align:center;padding:1rem 0 2.1rem}
+    .eyebrow{margin:0 0 .7rem;color:var(--green2);font-size:.75rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase}
+    h1,h2{font-family:var(--display);font-weight:500;letter-spacing:-.035em}h1{margin:.2rem auto 1rem;font-size:clamp(2.7rem,8vw,5.1rem);line-height:1}
+    h2{margin:0 0 .7rem;font-size:clamp(1.8rem,4vw,2.5rem);line-height:1.08}h3{margin:1.05rem 0 .35rem;font-size:1rem}
+    p{margin:.6rem 0;color:var(--muted)}.lede{max-width:700px;margin:0 auto;color:#c6d2cc;font-size:1.06rem}
+    .actions{display:flex;justify-content:center;flex-wrap:wrap;gap:.7rem;margin-top:1.4rem}
     .button{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:.7rem 1rem;border-radius:999px;text-decoration:none;font-weight:800}
     .primary{background:var(--green);color:#04100a}.secondary{border:1px solid var(--line);background:var(--surface)}
-    .toc{margin:1.2rem 0 3.2rem;padding:1rem;border:1px solid var(--line);border-radius:22px;background:var(--surface)}
-    .toc strong{display:block;margin-bottom:.7rem}
-    .toc-grid{display:flex;flex-wrap:wrap;gap:.55rem}
-    .toc a{padding:.48rem .7rem;border:1px solid var(--line);border-radius:999px;color:#c7d4cd;text-decoration:none;font-size:.84rem;background:rgba(255,255,255,.02)}
-    .section{scroll-margin-top:88px;margin-top:1rem;padding:2rem 0;border-top:1px solid var(--line)}
-    .section:first-of-type{border-top:0}
-    .card{margin:1rem 0;padding:1rem 1.1rem;border:1px solid var(--line);border-radius:18px;background:var(--surface)}
-    .card p:first-child{margin-top:0}.card p:last-child{margin-bottom:0}
-    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem;margin:1rem 0}
-    .mini{padding:1rem;border:1px solid var(--line);border-radius:16px;background:var(--surface)}
-    .mini strong{display:block;margin-bottom:.3rem}.mini p{font-size:.92rem;margin:0}
-    ul,ol{color:var(--muted);padding-left:1.35rem}
-    li{margin:.45rem 0}
-    .callout{margin:1rem 0;padding:1rem 1.1rem;border-left:3px solid var(--green);border-radius:12px;background:var(--soft)}
-    .callout strong{color:#dff7e9}
-    .muted{font-size:.88rem;color:#87978f}
-    footer{padding:2rem 0;border-top:1px solid var(--line);color:#7f9087;font-size:.82rem}
-    @media(max-width:680px){.grid{grid-template-columns:1fr}.navlinks{display:none}main{padding-top:2.5rem}.section{padding:1.6rem 0}}
+    .toc{margin:1rem 0 2.5rem;padding:1rem;border:1px solid var(--line);border-radius:20px;background:var(--surface)}
+    .toc strong{display:block;margin-bottom:.65rem}.toc-grid{display:flex;flex-wrap:wrap;gap:.5rem}
+    .toc a{padding:.45rem .65rem;border:1px solid var(--line);border-radius:999px;color:#c7d4cd;text-decoration:none;font-size:.83rem}
+    .section{scroll-margin-top:86px;padding:1.7rem 0;border-top:1px solid var(--line)}.section:first-of-type{border-top:0}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem;margin:1rem 0}
+    .mini{padding:.95rem;border:1px solid var(--line);border-radius:16px;background:var(--surface)}.mini strong{display:block;margin-bottom:.25rem}.mini p{font-size:.91rem;margin:0}
+    ul{color:var(--muted);padding-left:1.25rem;margin:.7rem 0}li{margin:.38rem 0}
+    .callout{margin:1rem 0;padding:.95rem 1rem;border-left:3px solid var(--green);border-radius:12px;background:var(--soft)}.callout strong{color:#dff7e9}
+    .muted{font-size:.86rem;color:#87978f} footer{padding:2rem 0;border-top:1px solid var(--line);color:#7f9087;font-size:.82rem}
+    @media(max-width:680px){.grid{grid-template-columns:1fr}.navlinks{display:none}main{padding-top:2.3rem}.section{padding:1.45rem 0}}
   </style>
 </head>
 <body>
-<header>
-  <div class="wrap nav">
-    <a class="brand" href="/"><img src="/public/bg-logo.png" alt=""><span>Žodis</span></a>
-    <nav class="navlinks" aria-label="Guide navigation">
-      <a href="/">Home</a>
-      <a href="/setup/">Install</a>
-      <a href="/#beta">Beta access</a>
-    </nav>
+<header><div class="wrap nav"><a class="brand" href="/"><img src="/public/bg-logo.png" alt=""><span>Žodis</span></a><nav class="navlinks"><a href="/">Home</a><a href="/setup/">Install</a><a href="/#beta">Beta access</a></nav></div></header>
+
+<main><div class="wrap">
+  <div class="hero">
+    <p class="eyebrow">Beta 3 user guide</p>
+    <h1>A quick tour of Žodis</h1>
+    <p class="lede">I’m learning Lithuanian too, and Žodis has grown out of the things I kept wishing I had while trying to make the language stick. You do not need to learn every feature before you start — this is just here when you want to know what something does.</p>
+    <div class="actions"><a class="button primary" href="https://learning-lithuanian.vercel.app/">Open Žodis</a><a class="button secondary" href="/setup/">Install on your phone</a></div>
   </div>
-</header>
 
-<main>
-  <div class="wrap">
-    <div class="hero">
-      <p class="eyebrow">Beta 3 user guide</p>
-      <h1>Getting the most from Žodis</h1>
-      <p class="lede">Žodis combines a guided Lithuanian course with practical translation, pronunciation help, real-life scenarios and a personal phrase Library. This guide explains what each part does and how they fit together.</p>
-      <div class="actions">
-        <a class="button primary" href="https://learning-lithuanian.vercel.app/">Open Žodis</a>
-        <a class="button secondary" href="/setup/">Install on your phone</a>
-      </div>
+  <div class="toc"><strong>Jump to</strong><div class="toc-grid">
+    <a href="#start">Getting started</a><a href="#course">The course</a><a href="#lessons">Inside a lesson</a><a href="#home">Translation</a>
+    <a href="#library">Library</a><a href="#audio">Audio & speaking</a><a href="#scenarios">Scenarios</a><a href="#progress">Progress & settings</a><a href="#beta">Beta notes</a>
+  </div></div>
+
+  <section class="section" id="start">
+    <p class="eyebrow">Start here</p><h2>Get it on your phone</h2>
+    <p>Žodis works in a browser, but I’d recommend installing it to your Home Screen. It feels much more like a normal app and saves hunting around for the tab every time.</p>
+    <div class="grid">
+      <div class="mini"><strong>iPhone / iPad</strong><p>Open Žodis in Safari → Share → Add to Home Screen.</p><p><a href="/setup/ios/">Full iPhone steps →</a></p></div>
+      <div class="mini"><strong>Android</strong><p>Open Žodis in Chrome → menu → Install app / Add to Home screen.</p><p><a href="/setup/android/">Full Android steps →</a></p></div>
     </div>
+    <div class="callout"><strong>One important beta thing:</strong> sign in with the same email address that was approved for access. If the email is different, the app will not recognise you as a beta tester.</div>
+  </section>
 
-    <div class="toc">
-      <strong>Jump to</strong>
-      <div class="toc-grid">
-        <a href="#start">Getting started</a><a href="#profile">Your profile</a><a href="#home">Home & translation</a>
-        <a href="#course">Guided course</a><a href="#activities">Lesson activities</a><a href="#lesson-scenarios">Lesson scenarios</a>
-        <a href="#audio">Audio & speaking</a><a href="#progress">Progress & review</a><a href="#library">Library</a>
-        <a href="#saved-scenarios">Personal Scenarios</a><a href="#settings">Settings & sync</a><a href="#beta">During the beta</a>
-      </div>
+  <section class="section" id="course">
+    <p class="eyebrow">The main bit</p><h2>The guided course</h2>
+    <p>Beta 3 has a five-section course that takes you from greetings and introductions through numbers, food and drink, directions, places and everyday conversation.</p>
+    <p>I’ve tried to keep the lessons short and practical. The idea is not to throw a grammar textbook at you — it is to teach a useful bit of Lithuanian, make sure you understand it, then get you using it.</p>
+    <div class="grid">
+      <div class="mini"><strong>Continue learning</strong><p>Training takes you back to the lesson you’re currently working through.</p></div>
+      <div class="mini"><strong>Browse course</strong><p>Jump around completed lessons or see how the five sections fit together.</p></div>
+      <div class="mini"><strong>Checkpoints</strong><p>Bring earlier material back so you have to remember it rather than just repeat the last screen.</p></div>
+      <div class="mini"><strong>Review</strong><p>Go back through a completed lesson without losing your completion.</p></div>
     </div>
+  </section>
 
-    <section class="section" id="start">
-      <p class="eyebrow">Start here</p>
-      <h2>Getting started</h2>
-      <p>Žodis works in a normal browser, but on a phone the best experience is the installed Progressive Web App (PWA). It gives you a Home Screen icon and opens more like a normal app.</p>
-      <div class="grid">
-        <div class="mini"><strong>iPhone / iPad</strong><p>Open the app in Safari, use Share, then choose Add to Home Screen.</p><p><a href="/setup/ios/">Full iPhone instructions →</a></p></div>
-        <div class="mini"><strong>Android</strong><p>Open the app in Chrome, use the menu, then choose Install app or Add to Home screen.</p><p><a href="/setup/android/">Full Android instructions →</a></p></div>
-      </div>
-      <div class="callout"><strong>Beta access:</strong> sign in with the same email address that was approved for the beta. An account can exist without being on the beta allowlist, but it will not be allowed into the app.</div>
-    </section>
+  <section class="section" id="lessons">
+    <p class="eyebrow">Not just multiple choice</p><h2>What you’ll do in lessons</h2>
+    <p>There’s a mixture of activities because I found that recognising an answer and actually being able to say it are very different things.</p>
+    <ul>
+      <li><strong>Learn:</strong> new words, phrases and useful word changes are introduced before you’re tested on them.</li>
+      <li><strong>Meaning choices:</strong> work out what the Lithuanian actually means.</li>
+      <li><strong>Build the phrase:</strong> put a Lithuanian sentence together yourself.</li>
+      <li><strong>Match the pairs:</strong> quick recall of words and meanings.</li>
+      <li><strong>Say it out loud:</strong> hear it, then try saying it yourself.</li>
+      <li><strong>Lesson scenarios:</strong> use what you’ve learned in a short real-life conversation.</li>
+    </ul>
+    <p>Žodis also tries not to be overly strict. If what you say works but is not the nicest answer for that moment, it can let you carry on and show you the better version rather than simply shouting “wrong”.</p>
+  </section>
 
-    <section class="section" id="profile">
-      <p class="eyebrow">Personalised learning</p>
-      <h2>Your profile</h2>
-      <p>Žodis asks for a few details because Lithuanian changes depending on the person speaking and the situation. Your profile can include your preferred first name, speaker gender, date of birth, where you are from and where you live.</p>
-      <p>Those details let lessons use examples that are actually about you. For example, age lines can use your real age and country exercises can use your real origin instead of forcing you to memorise a fictional learner’s answer.</p>
-      <p>You can edit your profile later in Settings.</p>
-    </section>
+  <section class="section" id="home">
+    <p class="eyebrow">When you just need a phrase</p><h2>Home: translation with context</h2>
+    <p>The course is the learning path, but sometimes you just need to know how to say something now. That’s what Home is for.</p>
+    <ul>
+      <li>Type what you want to say or use the mic where available.</li>
+      <li>Tell Žodis who you’re speaking to and whether the tone is friendly or polite.</li>
+      <li>Choose English-style phonetics or IPA.</li>
+      <li>Listen to the Lithuanian and save anything useful.</li>
+    </ul>
+    <div class="callout"><strong>Why all the context controls?</strong> Because Lithuanian changes depending on who is speaking, who you’re talking to and how formal the situation is. I’d rather give you the right version than pretend one translation fits everything.</div>
+  </section>
 
-    <section class="section" id="home">
-      <p class="eyebrow">Quick practical Lithuanian</p>
-      <h2>Home: translate, listen and save</h2>
-      <p>Home is the quickest way to work out something you want to say outside the structured course.</p>
-      <ul>
-        <li>Type what you want to say, or use the microphone where available.</li>
-        <li>Set the context so Žodis knows who is speaking, who you are speaking to and whether the tone should be friendly or polite.</li>
-        <li>Choose English-style phonetics or IPA if you want pronunciation support.</li>
-        <li>Play the Lithuanian aloud, then save useful results to your Library.</li>
-        <li>You can also add useful phrases to a personal Scenario collection for later.</li>
-      </ul>
-      <div class="callout"><strong>Why context matters:</strong> Lithuanian can change with gender, number, relationship and formality. The controls are there so the app does not pretend one generic translation fits every conversation.</div>
-    </section>
+  <section class="section" id="library">
+    <p class="eyebrow">The useful stuff you want to keep</p><h2>Your Library</h2>
+    <p>This is one of the parts I use most myself. Save something to the Library and Žodis does more than file away the translation — it builds it out into something you can actually come back to and learn from.</p>
+    <ul>
+      <li><strong>Anything you save is enriched with advanced notes and usage context.</strong></li>
+      <li><strong>Useful alternative Lithuanian phrases are added too</strong> when there are natural alternatives worth knowing.</li>
+      <li>You can search, sort, edit and replay anything you’ve saved.</li>
+      <li>Tap individual Lithuanian words for audio where word playback is available.</li>
+      <li>At course milestones, you choose which vocabulary is worth keeping instead of having everything dumped into your Library automatically.</li>
+    </ul>
+    <p>There’s also an optional Daily Recall that can show you one saved phrase when you open the app. It’s deliberately small — just a quick nudge to keep useful language in your head.</p>
+  </section>
 
-    <section class="section" id="course">
-      <p class="eyebrow">The main learning path</p>
-      <h2>The guided course</h2>
-      <p>Beta 3 includes a structured course across five sections. It starts with greetings and introductions, then develops through practical conversation, numbers and time, food and drink, directions, places and everyday travel language.</p>
-      <p>Training shows the next lesson to continue, while Browse course lets you revisit completed material or see where you are in the wider course.</p>
-      <div class="grid">
-        <div class="mini"><strong>Lessons</strong><p>Short chunks introduce and practise language before asking you to use it.</p></div>
-        <div class="mini"><strong>Module checkpoints</strong><p>Bring several lessons together so you retrieve rather than simply repeat.</p></div>
-        <div class="mini"><strong>Section checkpoints</strong><p>Test a broader mix of the section before you move on.</p></div>
-        <div class="mini"><strong>Review</strong><p>Completed lessons remain available so you can revisit them without losing completion.</p></div>
-      </div>
-    </section>
+  <section class="section" id="audio">
+    <p class="eyebrow">The bit I personally need constantly</p><h2>Audio, slow playback and speaking</h2>
+    <p>Lithuanian spelling is fairly consistent, but that didn’t mean I always knew what a phrase was supposed to sound like. So audio is built into pretty much everything.</p>
+    <ul>
+      <li>Play full phrases at normal speed.</li>
+      <li>Use slow playback when your ear needs a bit more time.</li>
+      <li>Tap individual words in supported parts of the app.</li>
+      <li>Switch between English-style phonetics and IPA.</li>
+      <li>In speaking exercises, listen first and then try the phrase yourself.</li>
+    </ul>
+    <p>The speaking checker keeps its feedback simple. You shouldn’t need to understand speech-recognition diagnostics just to practise a sentence.</p>
+  </section>
 
-    <section class="section" id="activities">
-      <p class="eyebrow">How lessons work</p>
-      <h2>Lesson activities</h2>
-      <p>Žodis deliberately mixes several types of practice. You should not spend the whole course doing multiple choice.</p>
-      <ul>
-        <li><strong>Learn:</strong> a new word, phrase or useful transformation is introduced before it is tested.</li>
-        <li><strong>Meaning choices:</strong> choose what a Lithuanian phrase means, often from deliberately close English options.</li>
-        <li><strong>Build the phrase:</strong> assemble a Lithuanian phrase from tokens. You can submit an incomplete or overfilled attempt and be told what is wrong.</li>
-        <li><strong>Match the pairs:</strong> connect Lithuanian with its meaning. Larger reviews are grouped into manageable pages.</li>
-        <li><strong>Say it out loud:</strong> speak the phrase yourself and get simple learner-facing feedback.</li>
-        <li><strong>Scenario practice:</strong> use the language in a short authored conversation rather than an isolated exercise.</li>
-      </ul>
-      <p>When Žodis accepts a response that is understandable but not the best wording, it can let you continue while explaining the stronger option instead of treating every variation as simply wrong.</p>
-    </section>
+  <section class="section" id="scenarios">
+    <p class="eyebrow">Putting it into a conversation</p><h2>Two kinds of Scenarios</h2>
+    <p>The word “Scenario” crops up in two places, so this is worth explaining.</p>
+    <div class="grid">
+      <div class="mini"><strong>Lesson scenarios</strong><p>Authored conversations inside the course — cafés, directions, shopping, asking for help and so on. They’re there to make you use the language you’ve just learned.</p></div>
+      <div class="mini"><strong>Your own Scenarios</strong><p>Personal phrase collections you create yourself — maybe visiting family, ordering your usual coffee, an appointment or an upcoming trip.</p></div>
+    </div>
+    <p>In lesson scenarios, some choices test whether you understood the Lithuanian, while others ask you to actually produce a reply. Help is usually staged, so you get a clue before being handed the full English answer.</p>
+  </section>
 
-    <section class="section" id="lesson-scenarios">
-      <p class="eyebrow">Real-life practice</p>
-      <h2>Scenario conversations inside lessons</h2>
-      <p>Lesson scenarios are authored conversations for situations such as cafés, introductions, directions, shopping, asking for help and travel. These are different from the personal Scenario collections described later in this guide.</p>
-      <p>Each lesson scenario starts with a short introduction so you know where you are, who you are speaking to and what you are trying to achieve.</p>
-      <ul>
-        <li>Some turns ask you to produce Lithuanian yourself.</li>
-        <li>Some turns test comprehension by asking you to choose the correct English meaning of spoken Lithuanian.</li>
-        <li>When English is used only to test understanding, the conversation still continues with an authored Lithuanian learner line.</li>
-        <li>If a natural alternative works, Žodis can accept it and suggest a better or more precise phrasing.</li>
-        <li>Help is staged: a clue or repeated Lithuanian can come before a full English reveal.</li>
-      </ul>
-    </section>
+  <section class="section" id="progress">
+    <p class="eyebrow">Pick up where you left off</p><h2>Progress, Review and Settings</h2>
+    <p>If you leave a lesson halfway through, Žodis remembers where you were and keeps the mistakes you’d already made as part of that attempt. Completed lessons stay completed, and Review lets you go back through them without messing up your progress.</p>
+    <p>Settings is where you can tweak the bits that are personal to you: your profile, voice, phonetics, Daily Recall, the in-app guide and Library/Scenario sync.</p>
+    <div class="callout"><strong>Library sync:</strong> Upload, Download and Merge are deliberately separate actions. If both your device and cloud have useful changes, Merge is normally the safest option. Course progress is handled separately from Library sync.</div>
+  </section>
 
-    <section class="section" id="audio">
-      <p class="eyebrow">Pronunciation</p>
-      <h2>Audio, word taps and speaking</h2>
-      <p>Audio is meant to be used constantly, not saved for a special pronunciation lesson.</p>
-      <ul>
-        <li>Tap phrase audio for normal playback.</li>
-        <li>Hold or use the slow control where available when you need more time to hear the sounds.</li>
-        <li>Tap individual Lithuanian words in supported views to hear them on their own.</li>
-        <li>Use English-style phonetics if IPA is unfamiliar, or switch to IPA if you prefer a more exact notation.</li>
-        <li>In speaking checks, listen first, then say the phrase yourself.</li>
-      </ul>
-      <p>The speech checker is designed for practical learner feedback. It does not show raw recognition diagnostics during normal use.</p>
-    </section>
+  <section class="section" id="beta">
+    <p class="eyebrow">While this is still a beta</p><h2>A few useful things to know</h2>
+    <p>The guided course, translation, Library, lesson scenarios, audio and progress are all live. A couple of extra Training areas are intentionally still marked Coming soon — they are not missing pieces of the current course.</p>
+    <ul>
+      <li><strong>Practice modes:</strong> more standalone recognition and production practice is planned.</li>
+      <li><strong>Exam prep:</strong> exam-style practice will come later.</li>
+    </ul>
+    <p>If something feels wrong, confusing or just annoying, tell me. The most useful feedback is simple: what screen you were on, what you expected, and what actually happened.</p>
+    <div class="callout"><strong>Can’t get in?</strong> First check you’re using the same email that was approved for the beta. If that is right and you’re still blocked, reply to your beta email or contact me through wherever you found Žodis.</div>
+  </section>
 
-    <section class="section" id="progress">
-      <p class="eyebrow">Keep moving</p>
-      <h2>Progress, Resume and Review</h2>
-      <p>Course progress is tied to your signed-in account and the current curriculum version.</p>
-      <ul>
-        <li>If you leave part-way through a lesson, Resume returns you to a safe point rather than pretending the lesson never started.</li>
-        <li>Wrong answers remain part of the lesson result after closing and reopening.</li>
-        <li>Completed lessons stay completed after reload.</li>
-        <li>Review lets you run through a completed lesson again without turning it back into an unfinished lesson.</li>
-        <li>XP, level and streak information make overall activity visible on the Training screen.</li>
-      </ul>
-      <div class="callout"><strong>Beta note:</strong> major curriculum changes can occasionally create a new course version. When that happens, old course progress may be treated as belonging to the earlier version. Your account and personal Library are separate from that course-version identity.</div>
-    </section>
+  <section class="section">
+    <p class="eyebrow">That’s enough reading</p><h2>Go play with it</h2>
+    <p>You really do not need to memorise this guide. Open the app, start Lesson 1, and come back here if you wonder what something is for.</p>
+    <div class="actions"><a class="button primary" href="https://learning-lithuanian.vercel.app/">Open Žodis</a><a class="button secondary" href="/">Back to zodis.app</a></div>
+  </section>
+</div></main>
 
-    <section class="section" id="library">
-      <p class="eyebrow">Keep useful language</p>
-      <h2>Your personal Library</h2>
-      <p>The Library holds the words and phrases you choose to keep. It is deliberately separate from “finishing the course”: you decide what deserves a permanent place in your own phrase collection.</p>
-      <ul>
-        <li>Save useful translations from Home.</li>
-        <li>At course milestones, choose which reviewed vocabulary you want to keep rather than automatically saving everything.</li>
-        <li>Search and sort saved entries.</li>
-        <li>Play phrase and word audio.</li>
-        <li>Edit notes, context and other details later.</li>
-        <li>Use RAG status as a simple personal confidence marker: red, amber or green.</li>
-      </ul>
-      <p>Daily Recall can optionally surface one saved phrase when you open the app, giving you a small piece of spaced review without demanding a full training session.</p>
-    </section>
-
-    <section class="section" id="saved-scenarios">
-      <p class="eyebrow">Your own collections</p>
-      <h2>Personal Scenarios</h2>
-      <p>The Scenarios tab also lets you build your own phrase collections around situations you personally need: a café visit, meeting family, an appointment, a trip or anything else.</p>
-      <p>You can add phrases from Home or the Library, reorder them and review them together. These personal Scenario collections are separate from the authored lesson conversations used inside the guided course.</p>
-    </section>
-
-    <section class="section" id="settings">
-      <p class="eyebrow">Control your setup</p>
-      <h2>Settings, Daily Recall and sync</h2>
-      <p>Settings is where you can change the parts of Žodis that are specific to you.</p>
-      <ul>
-        <li>Edit your profile.</li>
-        <li>Choose voice and phonetic preferences.</li>
-        <li>Turn Daily Recall on or off.</li>
-        <li>Reopen the in-app User Guide.</li>
-        <li>Manage Library and personal Scenario cloud sync.</li>
-      </ul>
-      <h3>Library / Scenario sync</h3>
-      <p>Personal Library and Scenario syncing is intentionally controlled from Settings. Upload, Download and Merge have different effects, so read the confirmation text before choosing one. Merge is normally the safest option when both the device and cloud may contain useful changes.</p>
-      <p>Course progress uses its own account-based progress system and should not be confused with the Library sync controls.</p>
-    </section>
-
-    <section class="section" id="beta">
-      <p class="eyebrow">While Žodis is in beta</p>
-      <h2>What is finished, and what is still coming</h2>
-      <p>Beta 3’s guided course, scenarios, Library, translation, audio and progress systems are live. Some additional Training areas are intentionally marked Coming soon rather than being unfinished parts of the current course.</p>
-      <ul>
-        <li><strong>Practice modes:</strong> additional standalone recognition/production/reinforcement tools are planned.</li>
-        <li><strong>Exam prep:</strong> exam-style practice is planned for a later Beta 3.x update.</li>
-      </ul>
-      <p>During the beta, the most useful feedback is specific: which screen you were on, what you expected to happen, what actually happened, and whether it blocked you or was simply confusing.</p>
-      <div class="callout"><strong>Access problem?</strong> First check that you are signing in with the exact email address approved for the beta. If the app still blocks you, reply to your beta welcome email or contact David through the channel that invited you.</div>
-    </section>
-
-    <section class="section">
-      <p class="eyebrow">Quick links</p>
-      <h2>Useful places</h2>
-      <div class="grid">
-        <div class="mini"><strong>Open Žodis</strong><p><a href="https://learning-lithuanian.vercel.app/">Launch the app →</a></p></div>
-        <div class="mini"><strong>Install guide</strong><p><a href="/setup/">Choose your device →</a></p></div>
-        <div class="mini"><strong>Beta page</strong><p><a href="/#beta">Request access →</a></p></div>
-        <div class="mini"><strong>Landing page</strong><p><a href="/">Back to zodis.app →</a></p></div>
-      </div>
-      <p class="muted">This guide describes the current Beta 3 experience and may change as the beta develops.</p>
-    </section>
-  </div>
-</main>
-
-<footer><div class="wrap">© 2026 Žodis. Built by David Lang for people learning Lithuanian in real life.</div></footer>
+<footer><div class="wrap">© 2026 Žodis. Built by David Lang while learning Lithuanian too.</div></footer>
 </body>
 </html>
