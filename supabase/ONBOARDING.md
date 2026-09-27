@@ -1,8 +1,10 @@
 # Žodis Beta 3 onboarding — activation runbook
 
-Status: branch only. Do not apply the migration, deploy the function, switch the
-landing page, or start the retry worker until David approves the production
-checkpoint. No historical request is replayed or admitted.
+Status: controlled backend validation is complete. The core schema/RPC migration
+and dormant `beta-signup` Edge Function are live in the active Supabase project,
+but the public landing page still uses the legacy direct INSERT path. Do not merge
+the landing PR, apply the final cutover migration, or start the retry worker until
+David approves the production checkpoint. No historical request is replayed or admitted.
 
 ## Components
 
@@ -15,8 +17,8 @@ checkpoint. No historical request is replayed or admitted.
   decision. The two existing owner addresses are excluded from the external
   tester count. Existing requests and allowlist rows return the neutral
   `received` result without a new email or status change.
-- `functions/beta-signup/index.ts` accepts a public form POST from the
-  canonical `https://www.zodis.app`, calls the RPC through the server-only
+- `functions/beta-signup/index.ts` accepts public form POSTs only from
+  `https://www.zodis.app` and `https://zodis.app`, calls the RPC through the server-only
   service role, and attempts both deliveries. A separate worker invocation
   authenticated by `BETA_WORKER_SECRET` drains pending/failed jobs. Set
   `verify_jwt = false` for this public endpoint; the handler checks the origin
@@ -108,6 +110,19 @@ Waitlist subject: `Your Žodis Beta waitlist place`
 From: `David from Žodis <hello@zodis.app>`; Reply-To:
 `davidgordonlang@gmail.com`. These are operational messages only.
 
-## Controlled preview testing
 
-During pre-cutover validation only, the Edge Function also accepts the exact Vercel branch-preview origin `https://zodis-landing-git-codex-beta3-o-f88ddc-davids-projects-25f8617a.vercel.app`, and Turnstile hostname validation accepts the matching host. Remove this preview allowance before final production activation.
+## Validation results
+
+Controlled live validation completed 27 Sep 2026:
+
+- real under-cap admission: passed; one request, one allowlist row, one Resend welcome, one Discord notification
+- duplicate submission/recovery: passed; no duplicate request/allowlist row and no duplicate welcome email
+- same-email app access: passed with email OTP
+- real waitlist path: passed; waitlisted address was not allowlisted and received one waitlist email + one Discord notification
+- true concurrent last-slot race: passed with overlapping requests; advisory lock serialized admission and prevented over-cap admission
+- provider failure/retry: passed for Discord and email; failed state persisted, retry moved to sent, completed delivery was not sent again
+- suppression: passed; suppressed pending email was not claimed
+- missing/invalid Turnstile token: both rejected with HTTP 403 before any request row was created
+- preview-only cap/origin/helper paths were removed after validation
+
+The remaining production actions are the approved landing merge, final cutover migration, retry-worker migration/schedule, and post-cutover smoke verification.
