@@ -9,10 +9,11 @@ const headers = {
 const json = (body: object, status = 200) => new Response(JSON.stringify(body), { status, headers });
 const env = (key: string) => { const value = Deno.env.get(key); if (!value) throw new Error(`Missing ${key}`); return value; };
 async function rpc(name: string, payload: object) {
-  const key = env('SUPABASE_SERVICE_ROLE_KEY');
+  const key = JSON.parse(env('SUPABASE_SECRET_KEYS')).default;
+  if (typeof key !== 'string' || !key) throw new Error('Missing default Supabase secret key');
   const res = await fetch(`${env('SUPABASE_URL')}/rest/v1/rpc/${name}`, {
-    method: 'POST', headers: { apikey: key, Authorization: `Bearer ${key}`,
-      'Content-Type': 'application/json' }, body: JSON.stringify(payload),
+    method: 'POST', headers: { apikey: key, 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
   });
   const data = await res.json();
   if (!res.ok) throw new Error(`Database RPC ${name} failed: ${res.status}`);
