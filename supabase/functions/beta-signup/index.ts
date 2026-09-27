@@ -36,8 +36,8 @@ function emailContent(status: Job['status']) {
   };
 }
 
-async function deliver(channel: 'email' | 'discord') {
-  const data = await rpc('beta_claim_delivery', { p_channel: channel });
+async function deliver(channel: 'email' | 'discord', requestId: number | null = null) {
+  const data = await rpc('beta_claim_delivery', { p_channel: channel, p_request_id: requestId });
   const job = (data as Job[] | null)?.[0];
   if (!job) return false;
   let success = false, providerId: string | null = null, failure: string | null = null;
@@ -105,10 +105,11 @@ Deno.serve(async (req) => {
       p_email: email, p_note: note, p_source: 'zodis.app',
     });
     const outcome = data?.[0]?.outcome || 'received';
+    const requestId = data?.[0]?.request_id;
     // Delivery is synchronous for a useful immediate result. The durable worker
     // catches failed or interrupted requests; provider failure never loses admission.
-    if (outcome !== 'received') {
-      await Promise.all([deliver('email'), deliver('discord')]);
+    if (outcome !== 'received' && Number.isSafeInteger(requestId)) {
+      await Promise.all([deliver('email', requestId), deliver('discord', requestId)]);
     }
     return json({ outcome });
   } catch (e) {
