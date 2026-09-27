@@ -160,7 +160,7 @@ Deno.serve(async (req) => {
     const requestId = data?.[0]?.request_id;
     // Delivery is synchronous for a useful immediate result. The durable worker
     // catches failed or interrupted requests; provider failure never loses admission.
-    if (outcome !== 'received' && Number.isSafeInteger(requestId)) {
+    if (Number.isSafeInteger(requestId)) {
       await Promise.all([deliver('email', requestId), deliver('discord', requestId)]);
     }
     return json(req, { outcome });
