@@ -1,12 +1,19 @@
-const origin = 'https://www.zodis.app';
-const headers = {
-  'Access-Control-Allow-Origin': origin,
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'content-type',
-  Vary: 'Origin',
-  'Content-Type': 'application/json',
+const allowedOrigins = new Set(['https://www.zodis.app', 'https://zodis.app']);
+const headersFor = (req: Request) => {
+  const requestOrigin = req.headers.get('origin');
+  const responseOrigin = requestOrigin && allowedOrigins.has(requestOrigin)
+    ? requestOrigin
+    : 'https://www.zodis.app';
+  return {
+    'Access-Control-Allow-Origin': responseOrigin,
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'content-type',
+    Vary: 'Origin',
+    'Content-Type': 'application/json',
+  };
 };
-const json = (body: object, status = 200) => new Response(JSON.stringify(body), { status, headers });
+const json = (req: Request, body: object, status = 200) =>
+  new Response(JSON.stringify(body), { status, headers: headersFor(req) });
 const env = (key: string) => { const value = Deno.env.get(key); if (!value) throw new Error(`Missing ${key}`); return value; };
 async function rpc(name: string, payload: object) {
   const key = JSON.parse(env('SUPABASE_SECRET_KEYS')).default;
@@ -84,24 +91,32 @@ async function deliver(channel: 'email' | 'discord', requestId: number | null = 
 }
 
 Deno.serve(async (req) => {
-  if (req.method === 'OPTIONS') return new Response(null, { status: 204, headers });
-  if (req.method !== 'POST') return json({ error: 'Method not allowed' }, 405);
+  if (req.method === 'OPTIONS') return new Response(null, { status: 204, headers: headersFor(req) });
+  if (req.method !== 'POST') return json(req, { error: 'Method not allowed' }, 405);
   try {
     if (req.headers.get('x-worker-secret') === Deno.env.get('BETA_WORKER_SECRET') && Deno.env.get('BETA_WORKER_SECRET')) {
       for (let i = 0; i < 12; i++) {
         const [email, discord] = await Promise.all([deliver('email'), deliver('discord')]);
         if (!email && !discord) break;
       }
-      return json({ ok: true });
+      return json(req, { ok: true });
     }
-    if (req.headers.get('origin') !== origin) return json({ error: 'Forbidden' }, 403);
-    if (Number(req.headers.get('content-length') || 0) > 2048) return json({ error: 'Invalid request' }, 413);
-    const input = await req.json();
-    if (input.website) return json({ outcome: 'received' }); // honeypot
+    const requestOrigin = req.headers.get('origin');
+    if (!requestOrigin || !allowedOrigins.has(requestOrigin)) return json(req, { error: 'Forbidden' }, 403);
+    if (Number(req.headers.get('content-length') || 0) > 2048) return json(req, { error: 'Invalid request' }, 413);
+    const rawBody = await req.text();
+    if (rawBody.length > 2048) return json(req, { error: 'Invalid request' }, 413);
+    let input: Record<string, unknown>;
+    try {
+      input = JSON.parse(rawBody);
+    } catch {
+      return json(req, { error: 'Invalid request' }, 400);
+    }
+    if (input.website) return json(req, { outcome: 'received' }); // honeypot
     const email = String(input.email || '').trim().toLowerCase();
     const note = String(input.note || '').trim();
     if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || note.length < 1 || note.length > 500)
-      return json({ error: 'Please enter a valid email and a short note.' }, 400);
+      return json(req, { error: 'Please enter a valid email and a short note.' }, 400);
     const data = await rpc('beta_submit_request', {
       p_email: email, p_note: note, p_source: 'zodis.app',
     });
@@ -112,9 +127,9 @@ Deno.serve(async (req) => {
     if (outcome !== 'received' && Number.isSafeInteger(requestId)) {
       await Promise.all([deliver('email', requestId), deliver('discord', requestId)]);
     }
-    return json({ outcome });
+    return json(req, { outcome });
   } catch (e) {
     console.error('beta signup error', e);
-    return json({ error: 'Something went wrong. Please try again in a moment.' }, 500);
+    return json(req, { error: 'Something went wrong. Please try again in a moment.' }, 500);
   }
 });
