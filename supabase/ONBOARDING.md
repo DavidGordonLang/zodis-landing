@@ -124,5 +124,6 @@ Controlled live validation completed 27 Sep 2026:
 - suppression: passed; suppressed pending email was not claimed
 - missing/invalid Turnstile token: both rejected with HTTP 403 before any request row was created
 - preview-only cap/origin/helper paths were removed after validation
+- retry scheduler preflight: corrected non-relocatable extension install syntax; `pg_net` and `pg_cron` installed successfully, a named five-minute cron job was created and verified, then unscheduled and both extensions removed again
 
 The remaining production actions are the approved landing merge, final cutover migration, retry-worker migration/schedule, and post-cutover smoke verification.
