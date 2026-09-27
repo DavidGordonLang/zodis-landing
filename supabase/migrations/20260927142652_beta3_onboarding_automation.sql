@@ -1,4 +1,5 @@
--- Beta 3 public signup. Apply only at the approved production activation checkpoint.
+-- Beta 3 public signup core schema/RPC setup.
+-- Safe to apply before cutover: the current landing-page INSERT policy remains live.
 -- Existing pending requests are deliberately not swept into this new cohort.
 alter table public.beta_requests
   add column if not exists decided_at timestamptz,
@@ -28,9 +29,8 @@ create unique index beta_allowlist_email_lower_v3 on public.beta_allowlist (lowe
 create index beta_requests_delivery_v3 on public.beta_requests (email_state, discord_state, created_at)
   where status in ('admitted','waitlisted');
 
--- The old direct browser insertion path is removed at activation. No public read policy is added.
-drop policy if exists "landing page can submit beta requests" on public.beta_requests;
-revoke insert on public.beta_requests from anon, authenticated;
+-- The old direct browser insertion path remains in place during controlled validation.
+-- It is removed only by the separate beta3_onboarding_cutover migration after approval.
 
 create or replace function public.beta_submit_request(p_email text, p_note text, p_source text default 'zodis.app')
 returns table (outcome text, tester_count integer, request_id bigint)
