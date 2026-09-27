@@ -1,7 +1,7 @@
 -- Apply after beta-signup is deployed and David approves production activation.
 -- The token is encrypted in Vault and read at each run; it is never in cron.job.
-create extension if not exists pg_cron with schema pg_catalog;
-create extension if not exists pg_net with schema extensions;
+create extension if not exists pg_cron;
+create extension if not exists pg_net;
 
 do $$
 begin
