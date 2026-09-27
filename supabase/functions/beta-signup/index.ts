@@ -44,6 +44,39 @@ function emailContent(status: Job['status']) {
   };
 }
 
+
+type TurnstileResult = {
+  success: boolean;
+  hostname?: string;
+  action?: string;
+  'error-codes'?: string[];
+};
+
+async function verifyTurnstile(token: string) {
+  if (!token || token.length > 2048) return false;
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 8000);
+  try {
+    const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        secret: env('TURNSTILE_SECRET_KEY'),
+        response: token,
+        idempotency_key: crypto.randomUUID(),
+      }),
+      signal: controller.signal,
+    });
+    const result = await res.json() as TurnstileResult;
+    if (!res.ok) throw new Error(`Turnstile HTTP ${res.status}`);
+    return result.success === true &&
+      (result.hostname === 'zodis.app' || result.hostname === 'www.zodis.app') &&
+      result.action === 'beta-signup';
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
+
 async function deliver(channel: 'email' | 'discord', requestId: number | null = null) {
   const data = await rpc('beta_claim_delivery', { p_channel: channel, p_request_id: requestId });
   const job = (data as Job[] | null)?.[0];
@@ -115,8 +148,11 @@ Deno.serve(async (req) => {
     if (input.website) return json(req, { outcome: 'received' }); // honeypot
     const email = String(input.email || '').trim().toLowerCase();
     const note = String(input.note || '').trim();
+    const turnstileToken = String(input.turnstileToken || '');
     if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || note.length < 1 || note.length > 500)
       return json(req, { error: 'Please enter a valid email and a short note.' }, 400);
+    if (!await verifyTurnstile(turnstileToken))
+      return json(req, { error: 'Please complete the security check and try again.' }, 403);
     const data = await rpc('beta_submit_request', {
       p_email: email, p_note: note, p_source: 'zodis.app',
     });
