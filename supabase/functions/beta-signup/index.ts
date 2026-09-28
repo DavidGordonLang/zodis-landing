@@ -1,3 +1,5 @@
+import { parseReferral } from './referrals.mjs';
+
 const allowedOrigins = new Set(['https://www.zodis.app', 'https://zodis.app']);
 const headersFor = (req: Request) => {
   const requestOrigin = req.headers.get('origin');
@@ -147,7 +149,10 @@ Deno.serve(async (req) => {
     }
     if (input.website) return json(req, { outcome: 'received' }); // honeypot
     const email = String(input.email || '').trim().toLowerCase();
-    const note = String(input.note || '').trim();
+    const hasReferral = Object.hasOwn(input, 'referralSource');
+    const referral = hasReferral ? parseReferral(input.referralSource, input.referralDetail) : null;
+    if (hasReferral && !referral) return json(req, { error: 'Please choose a valid source.' }, 400);
+    const note = referral ? referral.note : String(input.note || '').trim();
     const turnstileToken = String(input.turnstileToken || '');
     if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || note.length < 1 || note.length > 500)
       return json(req, { error: 'Please enter a valid email and a short note.' }, 400);
@@ -155,6 +160,7 @@ Deno.serve(async (req) => {
       return json(req, { error: 'Please complete the security check and try again.' }, 403);
     const data = await rpc('beta_submit_request', {
       p_email: email, p_note: note, p_source: 'zodis.app',
+      ...(referral ? { p_referral_source: referral.source, p_referral_detail: referral.detail } : {}),
     });
     const outcome = data?.[0]?.outcome || 'received';
     const requestId = data?.[0]?.request_id;
